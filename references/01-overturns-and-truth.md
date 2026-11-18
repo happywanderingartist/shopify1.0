@@ -13,7 +13,7 @@
 3. **第 3 层（方法层）：`references/03` 至 `references/06` 四份工序手册**
    分别管生图与分层（`03`）、3D 舞台与动效（`04`）、跨场景页面装配与验收（`05`）、新站提取与技能接线（`06`）。方法层可替换主题与文案，但严禁违反前两层硬数值 `← audit/v3/03-migration.md`。
 
-**旧稿清理铁律**：旧版 `93.8KB` 九万字风格包、旧版四条网页契约、旧版基线样式表已整份删除，任何地方都不许再引用它们；凡见到旧版九万字风格包文件名或「乌菲兹暗夜绿棕」字样，即属旧稿污染残留，必须立即清除 `← audit/v3/03-migration.md M-08`。
+**旧稿清理铁律**：旧版 `references/style-kit.md`（`93.8KB` / 约 `6.6` 万字）、旧版 `references/STYLE-CONTRACT.md`（四条网页契约，其中两条写错：侧栏 `20%`、巨字 `HWCigars`）、旧版 `references/theme-baseline.css` 已整份删除。**本句是全库唯一允许出现这三个文件名的位置**（用于标记删除），其余任何地方再出现即属旧稿污染残留 `← audit/v3/03-migration.md M-08`。
 
 ---
 
@@ -69,7 +69,7 @@
    `05` 手机四周有清晰的不规则深色剪纸描边且带真实 iPhone 灵动岛与拉丁字列表；`01` 滑板边缘锐利无投影；`03` 广告牌在状态机里是独立对象 `billboard` 并带独立 `blur-intensity` 属性 `← corrections.md #3, layers-breakdown.md §六, tech-truth.md §四`。反例：旧版 `visual-dictionary.md` §4.1 教「同化四步」与 `scene-production.md` §3.3 写 `thick impasto`、`sfumato`，把手机和滑板糊进背景，丢失贴纸爽感 `← audit/v3/01-conflict-rulings.md C-04`。
 
 4. **人物皮肤零笔触、天空墙面平涂；笔触只出现在树叶、头发、金属与粗织物褶皱暗部**
-   4 倍放大下 6 张原稿人脸与手背全部磨平零笔触，眉毛极细极淡；分块边缘能量实测：`06` 墙面仅 `0.9–2.3`（织锦 `12.9`），`01` 天空仅 `2.7–3.0`（树冠 `22.4–22.9`），`02` 背景 `5.4–7.6`（桌面 `18.2`）；亮部白袍允许接近纯白（`01` 中 `L>200` 占 `3.1%`） `← 02/04/05/06 脸部特写, layers-breakdown.md §三, corrections.md #7`。反例：旧版写 `skin painted with visible brushwork`、`craquelure` 并禁纯白 `#FFFFFF`，导致人脸长满油画刀痕、白袍变脏灰 `← audit/v3/01-conflict-rulings.md C-05`。
+   4 倍放大下 6 张原稿人脸与手背全部磨平零笔触，眉毛极细极淡；墙面与天空的笔触密度只有树冠/织锦的十分之一量级（分块边缘能量实测值见 §四）；亮部白袍允许接近纯白（`01` 中 `L>200` 占 `3.1%`） `← 02/04/05/06 脸部特写, layers-breakdown.md §三, corrections.md #7`。反例：旧版写 `skin painted with visible brushwork`、`craquelure` 并禁纯白 `#FFFFFF`，导致人脸长满油画刀痕、白袍变脏灰 `← audit/v3/01-conflict-rulings.md C-05`。
 
 5. **光源是柔和漫射天光（户外高阴天 / 室内大顶光），无定向硬投影**
    原站 `13` 个场景中 `9` 个无灯对象，全靠 `studio_small_09_1k.pmrem.ktx2` 摄影棚环境贴图漫射照明；人物鼻下与下巴无硬边黑影，手机屏幕光绝不外溢照亮手指 `← corrections.md #5, §三 #1, layers-breakdown.md §二`。反例：旧版写 `Single warm golden key light from upper left, deep chiaroscuro, Caravaggio tenebrism`，做出泛黄硬影的宗教画 `← audit/v3/01-conflict-rulings.md C-06`。
@@ -81,7 +81,7 @@
    29 帧录屏浅色内容区三处取点均为 `#dcded1`（`RGB(220, 222, 209)`），卡片与按钮为 `#f7f7ee`（实测 `#f3f6ef`–`#fafcf7`）；两栏对比卡片完全不靠边框线，仅靠 `#f7f7ee` 卡片浮在 `#dcded1` 底色上的明度差分割 `← 29 帧录屏采样, real-page.md §零 #2, §四`。反例：旧版 `tokens.css:42-47` 把 `body` 设为 `#000000`、把 `#f7f7ee` 当浅色页面底，导致整页发白失真 `← audit/v3/01-conflict-rulings.md C-09`。
 
 8. **左侧罗马数字导航栏占 `13.9%`（`1440` 视口下约 `200px`），右侧内容区占 `86.1%`**
-   录屏 `1080` 宽下实测章名左对齐 `x=17px`、罗马数字右对齐 `x=145px`（占 `13.9%`），列表从 `I Sidekick` 到 `XII Developer` 共 `12` 章（`Hero` 不进列表，当前章加粗并隐去罗马数字） `← real-page.md §二`。反例：旧版照抄外层容器 `w-1/5` 设成 `--sidebar-w: 20%`，忽略内层 `nav` 收窄，导致左栏过宽无法接入原站 `← audit/v3/01-conflict-rulings.md C-10`。
+   录屏 `1080` 宽下实测章名左对齐 `x=17px`、罗马数字右对齐 `x=145px`；`13.9%` 按导航列**含右内边距的截面宽度约 `150px`** 计，若只按罗马数字右缘 `145px` 计为 `13.4%`，做 CSS 时取 `13.9%`（`--sidebar-w: 13.9%`），与录屏视觉边距一致；列表从 `I Sidekick` 到 `XII Developer` 共 `12` 章（`Hero` 不进列表，当前章加粗并隐去罗马数字） `← real-page.md §二`。反例：旧版照抄外层容器 `w-1/5` 设成 `--sidebar-w: 20%`，忽略内层 `nav` 收窄，导致左栏过宽无法接入原站 `← audit/v3/01-conflict-rulings.md C-10`。
 
 9. **首屏是中央 `1px` 细线框目录卡片（`340×464`），滚出后飞向左侧栏；巨字从第二章封面才出现**
    录屏 `f0001–f0004` 实测首屏中央为 `1px` 白色半透细线框（透明度 `0.4`，占宽 `27%`、占高 `60%`，对应 `svg.davinci-lines` `viewBox="550 208 340 464"`），内含 `"The Ren///ssance Edition"` 与 `12` 章目录；首屏无巨字 `← 录屏 f0001–f0004, real-page.md §三, cinema.css:193-223`。反例：旧版 `layout.css:466` 把首屏做成巨字压左海报 `← audit/v3/01-conflict-rulings.md C-11`。
@@ -130,7 +130,7 @@
 - **背景层是生成/素材库预渲染贴图**：清单中存在 `antonkolisnyk_painting_of_forest_and_flowers_by_Sandro_Botticel-optimized.ktx2`，证实背景油画源自生成图或素材库后期压制，而非从零三维建模 `← tech-truth.md §零`。全站 `13` 章每章均按 `*_bg`（纯背景，无人）与 `*_desktop`（纯主体，透明底）成对拆分（如 `EW26_Sidekick_bg_stars.ktx2`） `← corrections.md #4, §二, tech-truth.md §六`。
 - **6 张原稿分块边缘能量与高饱和像素占比实测**：
   - 高饱和像素全图面积占比实测：`01-Hero` 为 `9.1%`（冰杯、购物袋、滑板三处荧光）、`02-Sidekick` 为 `1.3%`（仅半透紫眼罩）、`03-Marketing` 为 `13.9%`（右侧整块广告牌）、`04-Checkout` 为 `24.0%`（针织帽与卡片两处大块）、`05-Finance` 为 `40.8%`（粉绸袍自身高饱和，非荧光色）、`06-Operations` 为 `0%`（零荧光） `← layers-breakdown.md §一, corrections.md #5`。
-  - `6×4` 网格分块边缘能量（数值越小越平涂，数值越大笔触越碎密）实测：`01-Hero` 天空区低至 `2.7–3.0`，而树冠与前景花丛高达 `22.4–22.9`（其余区块介于 `5.7–17.0`）；`02-Sidekick` 深蓝黑背景净底仅 `5.4–7.6`，而笔记本电脑与桌面物件高达 `16.4–18.2`；`06-Operations` 深青绿背景墙面低至 `0.9–2.3`（全库最平涂区域），而人物胸前金棕织锦达 `12.5–12.9`（相差 `10` 倍以上） `← layers-breakdown.md §三`。
+  - `6×4` 网格分块边缘能量（数值越小越平涂，数值越大笔触越碎密）实测：`01-Hero` 天空区低至 `2.7–3.0`，树冠与前景花丛高达 `22.4–22.9`，其余人物与中景区块介于 `5.7–17.0`；`02-Sidekick` 深蓝黑背景净底仅 `5.4–7.6`，笔记本电脑与桌面物件高达 `16.4–18.2`，其余衣袍与中景区块介于 `6.4–13.4`；`06-Operations` 深青绿背景墙面低至 `0.9–2.3`（全库最平涂区域），人物胸前金棕织锦达 `12.5–12.9`（相差 `10` 倍以上），其余人物与桌面区块介于 `1.8–10.1` `← layers-breakdown.md §三`。
 - **人物层是透明贴图 + 顶点波浪微变形**：人物背后完全透明，叠加轻微顶点波浪（状态机内有对象名，无 Shader 源码 `← tech-truth.md §零, §六 未实证`）。
 - **现代道具是 `50` 个 `.glb` 真三维模型**：核对 `inventory.tsv` 实有 `skateboard.glb`、`iphone.glb`、`cardreader.glb`、`pos.glb`、`coin-reduced.glb`、`lute.glb`、`compass.glb`、`key.glb`、`ring.glb`、`duck.glb`、`scroll.glb`、`keyhole.glb`、`DancingRenaissanceShoppyv5_compressed.glb` 等 `50` 个模型 `← tech-truth.md §零`。它们占画面约 `40%`，在静止帧与推镜中用「锐边深描边透明贴纸 PNG」即可还原 `80%` 以上效果 `← tech-truth.md §三, §五`。
 - **照明源自单一摄影棚 HDRI**：资产含 `studio_small_09_1k.pmrem.ktx2`（Poly Haven Studio Small 09, 1K）。`13` 个场景中仅 `4` 个有 `light-1` 对象，其余 `9` 个纯靠该环境图照明，这是全站「漫射无硬影、暗部偏冷青蓝」的物理根源 `← tech-truth.md §一 #2`。
@@ -171,7 +171,7 @@
 | `03` | **Agentic** | `10.00s` `← tech-truth.md §一` | `7` `← tech-truth.md §一` | `asset-1, asset-2, asset-3, asset-4, camera, key, effects` `← tech-truth.md §一` | **四层贴图 + 3D 钥匙**：`4` 层预渲染贴图叠加 `key.glb` 三维道具 `← tech-truth.md §零, §一` |
 | `04` | **Online** | `10.00s` `← tech-truth.md §一` | `9` `← tech-truth.md §一` | `asset-1, asset-2, asset-3, camera, sidekick-background, online-background, code, white-overlay, effects` `← tech-truth.md §一` | **双背景交叉叠化 + 代码层**：同时挂两套背景与 `white-overlay`，从 `Sidekick` 叠化过渡 `← tech-truth.md §一 #5, §四` |
 | `05` | **Retail** | `9.54s` `← tech-truth.md §一` | `10` `← tech-truth.md §一` | `cube, asset-1, asset-2, asset-3, asset-4, camera, retail-splat, environment, bloom-effect, effects` `← tech-truth.md §一` | **3D 高斯泼溅 + 爆光**：含 `retail-splat`（具体模型内容本地无文件 `← tech-truth.md §四, §六 未实证`） |
-| `06` | **Marketing** | `10.00s` `← tech-truth.md §一` | `6` `← tech-truth.md §一` | `cube, asset-1, asset-3, camera, billboard, blur-intensity, effects` `← tech-truth.md §一` | **独立广告牌 + 动态模糊**：`billboard` 与 `blur-intensity` 独立成层（随滚动变清属推断 `← tech-truth.md §四, §六 未实证`） |
+| `06` | **Marketing** | `10.00s` `← tech-truth.md §一` | `6` `← tech-truth.md §一` | `cube, asset-1[asset-3], camera, billboard, blur-intensity, effects` `← tech-truth.md §一` | **独立广告牌 + 动态模糊**：`billboard` 与 `blur-intensity` 独立成层（随滚动变清属推断 `← tech-truth.md §四, §六 未实证`） |
 | `07` | **Checkout** | `10.00s` `← tech-truth.md §一` | `3` `← tech-truth.md §一` | `asset-1, camera, effects` `← tech-truth.md §一` | **单人半身 + 相机 + 特效**：无 `cube` 无灯，靠高精切层与相机推进成立 `← tech-truth.md §一` |
 | `08` | **Operations** | `10.00s` `← tech-truth.md §一` | `6` `← tech-truth.md §一` | `cube, asset-1, asset-3, camera, light-1, effects` `← tech-truth.md §一` | **单层群像 + `cube` + 静态灯**：五人长桌群像（`0%` 荧光）配容器缓动与静态灯 `← tech-truth.md §四` |
 | `09` | **ShopApp** | `10.00s` `← tech-truth.md §一` | `2` `← tech-truth.md §一` | `asset-1, camera` `← tech-truth.md §一` | **最简双对象（单人 + 相机）**：无灯无背景层无特效，纯靠画面与相机微推 `← tech-truth.md §四` |
@@ -180,7 +180,9 @@
 | `12` | **Shipping** | `10.00s` `← tech-truth.md §一` | `5` `← tech-truth.md §一` | `asset-1, asset-2, asset-3, camera, key` `← tech-truth.md §一` | **三层贴图 + 3D 钥匙**：三层画面配 `key.glb`，顶部巨字被导航栏半遮 `← tech-truth.md §一, real-page.md §三` |
 | `13` | **Developer** | `10.00s` `← tech-truth.md §一` | `7` `← tech-truth.md §一` | `cube, asset-1, asset-3, camera, light-1, scan-key, key` `← tech-truth.md §一` | **素描纸面 + 双钥匙扫描**：挂载 `scan-key` 与 `key` 两个三维道具及静态灯 `← tech-truth.md §一` |
 
-**五条硬规律** `← tech-truth.md §一`：1) 每章仅 `1` 个主资产 `asset-1`，其余为分层补充，全站无整图；2) `light-1` 仅出现 `4` 次（`Hero/B2B/Operations/Developer`），其余 `9` 章全靠 HDRI；3) `bloom-effect` 仅出现 `3` 次（`Hero/Retail/Sidekick`）；4) `particles` 仅出现 `2` 次（`Hero/Sidekick`）；5) `white-overlay` 仅出现 `2` 次（`Online/Sidekick`）。
+方括号 `[x]` 表示 `x` 是前一项的替换态，计入同一层，不另算对象数 `← tech-truth.md §一`。
+
+**五条硬规律** `← tech-truth.md §一`：1) 每章仅 `1` 个主资产 `asset-1`，其余为分层补充，全站无整图；2) `light-1` 仅出现 `4` 次（`Hero/B2B/Operations/Developer`），其余 `9` 章全靠 HDRI；3) `bloom-effect` 出现 `2` 次（`Hero` / `Retail`）；`tech-truth.md §一` 规律 3 把 `Sidekick` 也算进去，但 `Sidekick` 的 `11` 个对象清单里没有该项，**标「未实证，待核」**：可能是清单漏记，也可能是规律 3 记错；4) `particles` 仅出现 `2` 次（`Hero/Sidekick`）；5) `white-overlay` 仅出现 `2` 次（`Online/Sidekick`）。
 
 ---
 
@@ -194,7 +196,7 @@
 | `2` | 源码行号 | 能从 CSS/JS/JSON 源码里指出具体行号或键名 | `stage3d.css:60-63`、`hero-intro.js:68-95`、`tailwind-G-N6aznT.css` `.headline-1` `← layout.css:158-200` |
 | `3` | 官方文档 | Shopify 或第三方库的公开说明文档 | GSAP `3.15.1` 的 `25` 个本地插件清单、Poly Haven `studio_small_09_1k` `← NOTICE.md:14` |
 | `4` | 重参数化 | 为了在纯 CSS 3D 里能跑而从 Three.js 换算的值 | 四层 Z 轴 `-240px / 0px / +40px / +90px`、背景补偿倍率 `1.32` `← stage3d.css:11, 60-63` |
-| `5` | 未实证 | 推断、估算、无本地二进制文件或仅有 `4` 帧依据 | 织物擦镜 `720ms`、`billboard` 滚动变清、`retail-splat` 内容、其余 `7` 章原稿像素 `← tech-truth.md §六 未实证` |
+| `5` | 未实证 | 推断、估算、无本地二进制文件或仅有 `4` 帧依据 | 织物擦镜 `720ms`、`Sidekick` 是否含 `bloom-effect`、`billboard` 滚动变清、`retail-splat` 内容、其余 `7` 章原稿像素 `← tech-truth.md §六 未实证` |
 
 **使用规则：第 4 级必须标「重参数化，非原站坐标」，第 5 级必须标「未实证」，不许伪装成第 1 级。**
 
