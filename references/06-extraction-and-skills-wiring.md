@@ -1,6 +1,6 @@
 # 风格提取与技能接线
 
-**第一条总原则：Shopify Editions 特有的视觉与工程决策（冷青蓝暗场、洋红荧光配额、`13.9%` 侧栏、`4` 层 Z 轴、首屏 `10s` 自动序列）全部留在本技能库；通用的画面特征对比、Token 固化、提示词反推与 GSAP 基础用法一律外接专业技能，绝不在本库重造轮子或重讲教程** `← audit/v3/03-migration.md M-20, gsap-library.md §8`。
+**第一条总原则：Shopify Editions 特有的视觉与工程决策（冷青蓝暗场、洋红荧光配额、高定现代物件、人-物-境因果、`13.9%` 侧栏、4/5 层 Z 轴、首屏 `10s` 自动序列、活体微动红线与零点击离线声场）全部留在本技能库；通用的画面特征对比、Token 固化、提示词反推与 GSAP 基础用法一律外接专业技能，绝不在本库重造轮子或重讲教程** `← audit/v3/03-migration.md M-20, gsap-library.md §8`。
 
 本手册解决两件事：1) 换一个新目标站点时，如何用四步流程与脚本机械重提一套新的 `14` 维规范；2) 在日常生图、做页、加动效的每一环，何时调用哪一个本机技能或第三方工具包 `← extraction-workflow.md §1-§4`。本手册严禁出现十六进制色码。
 
@@ -35,7 +35,7 @@
 1. 运行 `node scripts/scaffold.mjs --out <dir> --title "<标题>"` 复制 starter 骨架 `← extraction-workflow.md §4`。
 2. 把新站令牌写入新目录 `css/tokens.css` 的 `--c-* / --f-* / --motion-*`，保持既有类名结构不变 `← extraction-workflow.md §4`。
 3. 按第 3 步拆出的区块顺序替换 `index.html` 的文案槽位与本地图片，动效常数同步写入 `js/motion.js` `← extraction-workflow.md §4`。
-4. **必须通过本地 HTTP 服务预览**（`node serve.mjs`，严禁 `file://`，Chromium 会因 CORS 拦掉 `.woff2` 字体），随后跑 `node scripts/verify.mjs <dir>` 验全绿（报错修复见 `05 §六`） `← extraction-workflow.md §4`。
+4. **必须通过本地 HTTP 服务预览**（`node serve.mjs`，严禁 `file://`，Chromium 会因 CORS 拦掉 `.woff2` 字体），随后跑 `node scripts/verify.mjs <dir>` 验通六重硬拦截全绿（报错修复见 `05 §六`） `← extraction-workflow.md §4`。
 
 **提取落地高频十坑速查（实测留档）** `← extraction-workflow.md §5`：
 1. HTML 说明注释里不要写完整 `<!-- SLOT -->` 字面量，防止注释提前闭合漏出正文。
@@ -83,7 +83,7 @@ node scripts/extract-tokens.mjs path/to/main.css
 
 | 序 | 本机技能名 | 流水线角色 | 什么时候交给它 | 什么必须留在本库（不外包） |
 |---|---|---|---|---|
-| 1 | **`shopify-editions-design-system`** | 本体中枢 | 贯穿全程的总控与裁决入口 | 全套冷青蓝/荧光裁决、`13.9%` 侧栏、四层 Z 轴、六配方与四尺子 |
+| 1 | **`shopify-editions-design-system`** | 本体中枢 | 贯穿全程的总控与裁决入口 | 全套冷青蓝/荧光裁决、人-物-境因果、`13.9%` 侧栏、4/5 层 Z 轴、亚像素抠图与 200% 质检、离线声场、六配方、四尺子与六重拦截 |
 | 2 | **`visual-feature-analyst`** | 参考图拆解 | 换新题材或新参考站时，横向对比多张图提取「撑起画面的不变量」与做移除测试 | Editions 六张原稿的既定 `12` 维实测卡（见 `03 §一, §六`） |
 | 3 | **`style-dna`** | 令牌固化 | 把零散视觉意图固化成新项目的变量体系与引用契约 | Editions 既定的 `tokens.css` 唯一字典（见 `02 §一`） |
 | 4 | **`image-gen-assistant`** | 提示词与出图 | 匹配生图提示词库并执行文生图/图生图调用 | 单图挂载 `0.4–0.6`、材质三态、零笔触皮肤与贴纸道具铁律（见 `03 §三`） |

@@ -121,12 +121,19 @@
   /* -------------------------------------------------------------------
    * 2. 可见性闸门：只对进入视口的 stage 跑 rAF
    * ------------------------------------------------------------------- */
+  let cinemaRaf = 0;
+  const ensureLoop = () => {
+    if (REDUCED || cinemaRaf || document.hidden) return;
+    if (stages.some((s) => s.visible)) cinemaRaf = requestAnimationFrame(tick);
+  };
+
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         const s = stages.find((x) => x.el === e.target);
         if (s) s.visible = e.isIntersecting;
       });
+      ensureLoop();
     }, { rootMargin: "20% 0px 20% 0px" });
     stages.forEach((s) => io.observe(s.el));
   } else {
@@ -178,13 +185,16 @@
   };
 
   const tick = () => {
+    cinemaRaf = 0;
+    if (document.hidden || !stages.some((s) => s.visible)) return;
     mx = lerp(mx, tx, .15);
     my = lerp(my, ty, .15);
     root.style.setProperty("--cine-mx", mx.toFixed(4));
     root.style.setProperty("--cine-my", my.toFixed(4));
     stages.forEach((s) => { if (s.visible) writeStage(s); });
-    requestAnimationFrame(tick);
+    cinemaRaf = requestAnimationFrame(tick);
   };
+  document.addEventListener("visibilitychange", ensureLoop);
   /* 初始化：所有 stage 先写一次静止态，避免不可见章节的 HUD 为空 */
   stages.forEach((s) => {
     const cam = RIGS[s.rig](0);
@@ -195,7 +205,7 @@
     });
   });
   if (REDUCED) stages.forEach(writeStage);
-  else requestAnimationFrame(tick);
+  else ensureLoop();
 
   /* -------------------------------------------------------------------
    * 5. Intro：几何线在 intro 进度 > .35 时解锁描边

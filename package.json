@@ -1,12 +1,12 @@
 {
   "name": "shopify-editions-design-system",
   "private": true,
-  "version": "3.0.0",
-  "description": "Shopify Editions Winter 2026 Design System V3 — pure Markdown skill repository and zero-dependency offline starter",
+  "version": "3.1.0",
+  "description": "Shopify Editions Winter 2026 Design System V3.1 — pure Markdown skill repository, 4/5-plane offline starter, and 6-guard static verifier",
   "scripts": {
     "dev": "PORT=3000 node demo-mona-lisa/serve.mjs",
     "start": "PORT=3000 node demo-mona-lisa/serve.mjs",
     "build": "node scripts/verify.mjs demo-mona-lisa --port 4195",
-    "lint": "node scripts/verify.mjs demo-mona-lisa --port 4196"
+    "lint": "node scripts/verify.mjs assets/starter --port 4196 && node scripts/verify.mjs demo-mona-lisa --port 4197"
   }
 }

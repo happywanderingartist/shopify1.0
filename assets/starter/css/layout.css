@@ -9,9 +9,9 @@
 html, body { margin: 0; padding: 0; width: 100%; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 60px; }
 body {
-  background-color: var(--c-black);
+  background-color: var(--c-page-bg);
   font-family: var(--f-fallback);
-  color: var(--c-paper);
+  color: var(--c-ink);
   transition: color var(--t-body) var(--e-in-out),
               background-color var(--t-body) var(--e-in-out);
   -webkit-font-smoothing: antialiased;
@@ -25,8 +25,9 @@ img, svg, video { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 1px solid var(--c-focus); outline-offset: -1px; }
 
-/* 主题状态：由 motion.js 依据当前章节写 html[data-nav-theme] */
-html[data-nav-theme="light"] body { background-color: var(--c-page-bg); }
+/* 主题状态：由 motion.js 依据当前章节写 html[data-nav-theme]（C-09 默认灰绿主底 #dcded1） */
+html[data-nav-theme="dark"] body { background-color: var(--c-black); color: var(--c-paper); }
+html[data-nav-theme="light"] body { background-color: var(--c-page-bg); color: var(--c-ink); }
 html[data-title-theme="light"] .site-title,
 html[data-sidebar-theme="light"] .side-nav { color: var(--c-ink); }
 html[data-sidebar-theme="light"] .side-nav__num { color: var(--c-ink-60); }
@@ -111,6 +112,102 @@ html[data-sidebar-theme="light"] .side-nav__rule { background-image: linear-grad
 .side-nav__item.is-active .side-nav__num,
 .side-nav__item.is-active .side-nav__label { color: var(--c-paper); }
 .side-nav__item.is-active .side-nav__rule { clip-path: inset(0); }
+
+/* =====================================================================
+ * A2. 首屏中央 1px 细线框目录卡片（C-11 · 站内第 14 页可选解锁组件）
+ * ---------------------------------------------------------------------
+ * 规范出处：01 §二 #9 / 02 §4.1（340×464 比例，滚出 100px 后解锁并隐藏，
+ * 同时左侧 13.9% 常驻目录显露接管）。不加 data-toc-dock 时零影响。
+ * ===================================================================== */
+.toc-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: calc(var(--z-nav) + 1);
+  width: min(340px, calc(100vw - 24px));
+  aspect-ratio: 340 / 464;
+  padding: var(--sp-20);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--c-paper);
+  border: 1px solid rgba(247, 247, 238, .4);
+  background: rgba(20, 23, 34, .22);
+  backdrop-filter: blur(4px);
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform var(--t-scroll-state) var(--e-scroll),
+              opacity var(--t-scroll-state) var(--e-scroll),
+              visibility var(--t-scroll-state);
+}
+.toc-card__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .42;
+  pointer-events: none;
+}
+.toc-card__head {
+  position: relative;
+  z-index: 1;
+  font-family: var(--f-sans);
+  font-size: 13px;
+  font-weight: var(--w-bold);
+  letter-spacing: -.01em;
+}
+.toc-card__list {
+  position: relative;
+  z-index: 1;
+  counter-reset: toc-item;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-7);
+}
+.toc-card__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--f-sans);
+  font-size: 15px;
+  font-weight: var(--w-bold);
+  line-height: 1;
+  letter-spacing: -.02em;
+  text-decoration: none;
+}
+.toc-card__num {
+  font-family: var(--f-serif);
+  font-size: .6875rem;
+  color: var(--c-paper-60);
+}
+.toc-card__num::before {
+  counter-increment: toc-item;
+  content: counters(toc-item, ".", upper-roman);
+}
+html[data-nav-theme="light"] .toc-card {
+  color: var(--c-ink);
+  border-color: var(--c-grey-mid);
+  background: rgba(220, 222, 209, .78);
+}
+/* 启用 data-toc-dock 时：首屏静止态隐藏左侧栏、显示中央目录卡；滚过 100px 互换解锁 */
+html[data-toc-dock="card"] .side-nav {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-16px);
+  transition: opacity var(--t-scroll-state) var(--e-scroll),
+              transform var(--t-scroll-state) var(--e-scroll);
+}
+html[data-toc-dock="docked"] .side-nav {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity var(--t-scroll-state) var(--e-scroll),
+              transform var(--t-scroll-state) var(--e-scroll);
+}
+html[data-toc-dock="docked"] .toc-card {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(calc(-50vw + 100px), -50%) scale(.72);
+}
 
 /* =====================================================================
  * B. 章节容器

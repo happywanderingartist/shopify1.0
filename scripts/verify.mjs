@@ -116,36 +116,43 @@ for (const name of htmlFiles) {
     refs.add("/" + v.replace(/^\.?\//, "").split("#")[0]);
   }
 
-  /* 硬拦截 5a：HTML 零外联 + 零 <video> */
-  const external = [...cleanHtml.matchAll(/(?:src|href)\s*=\s*["'](https?:)?\/\/[^"']+/g)].map((m) => m[0]);
+  /* 硬拦截 5a：HTML 零外联（含内联 style url()）+ 零 <video> */
+  const external = [
+    ...[...cleanHtml.matchAll(/(?:src|href)\s*=\s*["'](https?:)?\/\/[^"']+/gi)].map((m) => m[0]),
+    ...[...cleanHtml.matchAll(/url\(\s*["']?\s*(https?:)?\/\/[^)"']+/gi)].map((m) => m[0]),
+  ];
   totalExternal += external.length;
   if (external.length) issues.push(`${name}: external refs → ${external.slice(0, 5).join(" | ")}`);
   if (/<video\b/i.test(cleanHtml)) {
     issues.push(`${name}: 出现 <video> 标签（违反铁律：禁止使用视频，须用纯前端分层与动画）`);
   }
 
-  /* 硬拦截 3 & 6：含 data-stage3d 的页面校验 */
-  if (/\bdata-stage3d\b/.test(cleanHtml)) {
-    const stageTagMatch = cleanHtml.match(/<div\b[^>]*\bdata-stage3d\b[^>]*>/i);
-    if (!stageTagMatch || !/\bdata-autoplay\b/i.test(stageTagMatch[0])) {
-      issues.push(`${name}: [data-stage3d] 缺少 data-autoplay（违反 V3.1 零点击自动演出铁律）`);
+  /* 硬拦截 3 & 6：逐个校验页面内所有 [data-stage3d] 舞台 */
+  const stageTagRe = /<[a-z0-9-]+\b[^>]*\bdata-stage3d\b[^>]*>/gi;
+  const stageTags = [...cleanHtml.matchAll(stageTagRe)];
+  for (let si = 0; si < stageTags.length; si++) {
+    const tagMatch = stageTags[si];
+    const label = stageTags.length > 1 ? `${name} (stage #${si + 1})` : name;
+    if (!/\bdata-autoplay\b/i.test(tagMatch[0])) {
+      issues.push(`${label}: [data-stage3d] 缺少 data-autoplay（违反 V3.1 零点击自动演出铁律）`);
     }
 
-    const stageIdx = cleanHtml.search(/\bdata-stage3d\b/);
-    const afterStage = cleanHtml.slice(stageIdx);
-    const stageWindow = afterStage.split(/<div\s+class="hero__inner"/i)[0] || afterStage;
+    const startIdx = tagMatch.index;
+    const nextIdx = si + 1 < stageTags.length ? stageTags[si + 1].index : cleanHtml.length;
+    const slice = cleanHtml.slice(startIdx, nextIdx);
+    const stageWindow = slice.split(/<div\s+class="hero__inner"/i)[0] || slice;
 
     if (/class\s*=\s*["'][^"']*\bhero__img\b[^"']*["']/i.test(stageWindow)) {
-      issues.push(`${name}: [data-stage3d] 内出现 .hero__img（违反 C-15，须改为 .stage3d__img）`);
+      issues.push(`${label}: [data-stage3d] 内出现 .hero__img（违反 C-15，须改为 .stage3d__img）`);
     }
     if (/class\s*=\s*["'][^"']*\bstage3d__tone\b[^"']*["']/i.test(stageWindow)) {
-      issues.push(`${name}: [data-stage3d] 内残留 .stage3d__tone 暖棕遮罩（违反 C-01，须删除）`);
+      issues.push(`${label}: [data-stage3d] 内残留 .stage3d__tone 暖棕遮罩（违反 C-01，须删除）`);
     }
 
     /* 硬拦截 6b：舞台内必须有 >= 3 个 .stage3d__layer 图层 */
     const layerMatches = [...stageWindow.matchAll(/class\s*=\s*["']([^"']*\bstage3d__layer\b[^"']*)["']/gi)];
     if (layerMatches.length < 3) {
-      issues.push(`${name}: [data-stage3d] 仅检出 ${layerMatches.length} 个 .stage3d__layer（至少需要 3 层，禁止单图伪装 3D 舞台）`);
+      issues.push(`${label}: [data-stage3d] 仅检出 ${layerMatches.length} 个 .stage3d__layer（至少需要 3 层，禁止单图伪装 3D 舞台）`);
     }
 
     /* 收集非 --bg 图层内引用的 PNG 路径，供硬拦截 4 校核真 Alpha */

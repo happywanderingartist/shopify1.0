@@ -83,7 +83,8 @@
    *    主题由 IntersectionObserver 从 section[data-nav-theme] 同步到 <html>
    * --------------------------------------------------------------- */
   const root = document.documentElement;
-  let scrolled = false;
+  const hasTocCard = !!document.querySelector(".toc-card[data-toc-dock]");
+  let scrolled = null;
   const applyScrollGate = (y) => {
     const next = y > 100;
     if (next !== scrolled) {
@@ -91,6 +92,9 @@
       document.querySelectorAll("[data-section-scope]").forEach((el) => {
         el.dataset.scrolled = String(next);
       });
+      if (hasTocCard) {
+        root.dataset.tocDock = next ? "docked" : "card";
+      }
     }
   };
   window.addEventListener("scroll", () => applyScrollGate(window.scrollY), { passive: true });
@@ -213,19 +217,23 @@
    * --------------------------------------------------------------- */
   const dampTargets = document.querySelectorAll("[data-damp]");
   if (!REDUCED && dampTargets.length) {
-    let targetX = 0, targetY = 0, curX = 0, curY = 0;
+    let targetX = 0, targetY = 0, curX = 0, curY = 0, dampRaf = 0;
     window.addEventListener("pointermove", (e) => {
       targetX = (e.clientX / window.innerWidth - .5) * 2;
       targetY = (e.clientY / window.innerHeight - .5) * 2;
     }, { passive: true });
     const loop = () => {
+      dampRaf = 0;
+      if (document.hidden) return;
       curX = lerp(curX, targetX, .15);
       curY = lerp(curY, targetY, .15);
       root.style.setProperty("--mouse-x", curX.toFixed(4));
       root.style.setProperty("--mouse-y", curY.toFixed(4));
-      requestAnimationFrame(loop);
+      dampRaf = requestAnimationFrame(loop);
     };
-    requestAnimationFrame(loop);
+    const startDamp = () => { if (!dampRaf && !document.hidden) dampRaf = requestAnimationFrame(loop); };
+    document.addEventListener("visibilitychange", startDamp);
+    startDamp();
   }
 
   /* ---------------------------------------------------------------
@@ -251,9 +259,9 @@
   }
 
   /* ---------------------------------------------------------------
-   * 7. 侧栏目录点击：easeOutExpo 1s 跳转（原站 1292-1300）
+   * 7. 侧栏与首屏目录卡点击：easeOutExpo 1s 跳转（原站 1292-1300）
    * --------------------------------------------------------------- */
-  document.querySelectorAll(".side-nav__link[href^='#']").forEach((a) => {
+  document.querySelectorAll(".side-nav__link[href^='#'], .toc-card__link[href^='#']").forEach((a) => {
     a.addEventListener("click", (e) => {
       const el = document.querySelector(a.getAttribute("href"));
       if (!el) return;

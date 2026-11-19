@@ -125,9 +125,9 @@
 
 | 页面区块 | 根容器与核心子元素类名 | 配对 `data-*`（行为见 `04 §五`） | 状态类 / 主题联动 | 出处 |
 |---|---|---|---|---|
-| **页面外壳** | `html` → `.main-wrapper.max-w-container` → `main.safe-min-h-svh` | `html[data-nav-theme="dark\|light"]`, `data-title-theme`, `data-sidebar-theme` | `light` 态改写 `body`、移动导航与侧栏墨色 | `← blueprint.md §1.1, design-spec.md D10` |
-| **左侧常驻目录** | `aside.side-nav` → `nav` → `svg.davinci-lines` + `ol` → `li.side-nav__item` → `a.side-nav__link`（`.side-nav__label` + `.side-nav__rule` + `.side-nav__num`） | `data-section-name="side-nav"`, `data-initiated`, `data-scrolled`, `data-sidebar-ready`, `data-sidebar-loaded` | `.is-active` 加粗当前章并隐去罗马数字；`.animation-done` 锁定停靠态 | `← blueprint.md §1.2, layout.css:31-56` |
-| **3D 首屏舞台** | `.hero` → `.stage3d` → `.stage3d__camera` → `.stage3d__layer--bg`（`.stage3d__img`）/ `--subject` / `--fx` / `--prop` + 相机外 `.stage3d__flash` | `data-stage3d`, `data-autoplay`, `data-dolly`, `data-drift` | **严禁**在 `.stage3d` 背景图上挂 `.hero__img`（防与 `cinematic.js` 打架） | `← stage3d.css:60-78, C-15` |
+| **页面外壳** | `html` → `.main-wrapper.max-w-container` → `main.safe-min-h-svh`；顶栏含 `[data-sound-toggle]` 静音开关 | `html[data-nav-theme="dark\|light"]`, `data-title-theme`, `data-sidebar-theme`, `data-sound-toggle` | `light` 态切灰绿主底与深墨色；`dark` 态切深底反白 `← layout.css:11-36` | `← blueprint.md §1.1, design-spec.md D10` |
+| **首屏目录卡与左侧栏** | 可选 `.toc-card[data-toc-dock]`（`340×464` 细线框）+ `aside.side-nav` → `nav` → `svg.davinci-lines` + `ol` → `li.side-nav__item` → `a.side-nav__link`（`.side-nav__label` + `.side-nav__rule` + `.side-nav__num`） | `data-toc-dock`, `data-section-name="side-nav"`, `data-initiated`, `data-scrolled`, `data-sidebar-ready`, `data-sidebar-loaded` | 滚过 `100px` 由 `card` 解锁为 `docked`；`.is-active` 加粗当前章并隐去罗马数字 `← layout.css:52-206` | `← blueprint.md §1.2, C-11` |
+| **3D 首屏舞台** | `.hero` → `.stage3d` → `.stage3d__camera` → 标准 4 层（`--bg` `.stage3d__img` / `--subject` / `--fx` / `--prop`）或 5 层剧场（`--bg` / `--mid` / `--arch` / `--subject` / `--fx` / `--fg`）+ `.stage3d__hotspot`（`.stage3d__hotspot-ring` 常态 `opacity: 0`）+ 相机外 `.stage3d__flash` | `data-stage3d`, `data-stage-mode="theater"`, `data-autoplay`, `data-dolly`, `data-drift` | **严禁**在 `.stage3d` 背景图上挂 `.hero__img` 或 `.stage3d__tone`；热区悬停才用 `var(--c-magenta)` 显露 `← stage3d.css:60-245` | `← stage3d.css, C-15, V3.1` |
 | **常规章节** | `section.section`（`id="<slug>"`）→ `.chapter-cover`（`.headline-1`）+ `.narrative-1.drop-cap` + `.grid-template-with-gaps` → `article.grid-cols-subgrid` | `data-section-id`, `data-section-index`, `data-section-scope`, `data-nav-theme`, `data-transition` | 滚入视口由 `IntersectionObserver` 同步根元素主题 | `← blueprint.md §1.1, §1.3` |
 | **卡片与斥力场** | `.cloud-field` → `.cloud-card`（变体 `.cloud-card--organ`）→ `.cloud-card__inner` + `.cloud-card__text` + `.cloud-card__btn` | `data-cloud-field`, `data-cine-stagger`, `data-cine-step`（或 `data-reveal`） | `.is-active .cloud-card__btn` 切 `var(--c-accent)` | `← layout.css:364-388` |
 | **六机位重场面** | `.cine-stage` → `.cine-layer`（远/中/近三层） | `data-rig`, `data-rig-label`, `data-depth` | 独立于 `.stage3d`，二选一不混用 | `← cinema.js:14-17` |
@@ -159,7 +159,7 @@
 
 | 资产类型 | 命名模板与实测示例 | 工程硬约束 | 出处 |
 |---|---|---|---|
-| **自产分层 PNG** | `assets/layers/<layer>-<scene>-<role>.png`（如 `bg-courtyard.png`、`figure-subject-cutout.png`、`prop-mirror-cutout.png`） | 仅保留成品图；抠图层须经程序校验 `RGBA` 四角 `alpha == 0`（见 `03 §四`），删光带水印原图 | `← 03 §四 第五步` |
+| **自产分层与关节 PNG** | `assets/layers/<layer>-<scene>-<role>.png`（如 `bg-courtyard.png`、`figure-subject-cutout.png`、`prop-mirror-cutout.png`；5 层与关节拆件：`*-arch-*.png`、`*-fg-*.png`、`*-base.png`、`*-hand-left.png`、`*-hand-right.png`） | 仅保留成品图；所有透明层/拆件必须真 `RGBA`（`verify.mjs` 拦截 4 自动校验 PNG `colorType`），200% 实景复核后**删光所有 `_qa_*` 临时质检图与带水印原图** | `← 03 §四, V3.1` |
 | **本地字体** | 语义名 `.woff2`（`NeueMontreal-Bold.woff2`、`HWCigars-Regular.woff2`、`ImperialScript-Regular.woff2`、`Inter-Variable.woff2`）；原站 CDN 为 `32` 位 MD5 哈希，日文带 `-subset` | 全部置 `assets/starter/fonts/`，配 `font-display: swap`，零外链 | `← tokens.css:10-38, blueprint.md §4.1` |
 | **3D 模型与贴图** | `<前缀>_<场景>_<图层>_<YYMMDD>_compressed-optimized.glb`；`<Scene>_<layer>@@v=<戳>.ktx2` | `@@v=` 为离线镜像查询串编码；静态页只占位不实例化 WebGL | `← blueprint.md §4.2, cinema-audit.md §5` |
 | **Theatre 状态与 Rive** | `<Scene>Scene.theatre-project-state[_序号]@@v=<戳>.json`；`<name>.riv` | 仅作源码取数与动效对照参考，静态页不加载运行态 | `← blueprint.md §4.2` |

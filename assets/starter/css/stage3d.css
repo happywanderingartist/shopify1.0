@@ -216,8 +216,8 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1.5px solid var(--c-neon-rose, #ea135e);
-  box-shadow: 0 0 12px rgba(234, 19, 94, .45);
+  border: 1.5px solid var(--c-magenta);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--c-magenta) 45%, transparent);
   opacity: 0;
   transition: opacity .28s ease, transform .28s ease;
   pointer-events: none;
@@ -231,7 +231,7 @@
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  border: 1px solid var(--c-neon-magenta, #ff0cdb);
+  border: 1px solid var(--c-magenta);
   opacity: 0;
   transform: scale(.9);
   pointer-events: none;

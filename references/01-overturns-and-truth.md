@@ -188,7 +188,7 @@
 
 方括号 `[x]` 表示 `x` 是前一项的替换态，计入同一层，不另算对象数 `← tech-truth.md §一`。
 
-**五条硬规律** `← tech-truth.md §一`：1) 每章仅 `1` 个主资产 `asset-1`，其余为分层补充，全站无整图；2) `light-1` 仅出现 `4` 次（`Hero/B2B/Operations/Developer`），其余 `9` 章全靠 HDRI；3) `bloom-effect` 出现 `2` 次（`Hero` / `Retail`）；`tech-truth.md §一` 规律 3 把 `Sidekick` 也算进去，但 `Sidekick` 的 `11` 个对象清单里没有该项，**标「未实证，待核」**：可能是清单漏记，也可能是规律 3 记错；4) `particles` 仅出现 `2` 次（`Hero/Sidekick`）；5) `white-overlay` 仅出现 `2` 次（`Online/Sidekick`）。
+**五条硬规律** `← tech-truth.md §一`：1) 每章仅 `1` 个主资产 `asset-1`，其余为分层补充，全站无整图；2) `light-1` 仅出现 `4` 次（`Hero/B2B/Operations/Developer`），其余 `9` 章全靠 HDRI；3) 顶层 `bloom-effect` 出现 `2` 次（`Hero` / `Retail`）；经直接核查原始 `SidekickScene.theatre-project-state` JSON，`02 Sidekick` **不含**顶层 `bloom-effect` 对象（时间轴共 `11` 个对象），而是将 `"bloom": {"intensity": 0.2}` 静态嵌套于 `effects` 对象内 `← PROGRESS.md Q-01`；4) `particles` 仅出现 `2` 次（`Hero/Sidekick`）；5) `white-overlay` 仅出现 `2` 次（`Online/Sidekick`）。
 
 ---
 
@@ -202,7 +202,7 @@
 | `2` | 源码行号 | 能从 CSS/JS/JSON 源码里指出具体行号或键名 | `stage3d.css:60-63`、`hero-intro.js:68-95`、`tailwind-G-N6aznT.css` `.headline-1` `← layout.css:158-200` |
 | `3` | 官方文档 | Shopify 或第三方库的公开说明文档 | GSAP `3.15.1` 的 `25` 个本地插件清单、Poly Haven `studio_small_09_1k` `← NOTICE.md:14` |
 | `4` | 重参数化 | 为了在纯 CSS 3D 里能跑而从 Three.js 换算的值 | 四层 Z 轴 `-240px / 0px / +40px / +90px`、背景补偿倍率 `1.32` `← stage3d.css:11, 60-63` |
-| `5` | 未实证 | 推断、估算、无本地二进制文件或仅有 `4` 帧依据 | 织物擦镜 `720ms`、`Sidekick` 是否含 `bloom-effect`、`billboard` 滚动变清、`retail-splat` 内容、其余 `7` 章原稿像素 `← tech-truth.md §六 未实证` |
+| `5` | 未实证 | 推断、估算、无本地二进制文件或仅有 `4` 帧依据 | 织物擦镜 `720ms`、`billboard` 滚动变清、`retail-splat` 内容、其余 `7` 章原稿像素 `← tech-truth.md §六 未实证` |
 
 **使用规则：第 4 级必须标「重参数化，非原站坐标」，第 5 级必须标「未实证」，不许伪装成第 1 级。**
 

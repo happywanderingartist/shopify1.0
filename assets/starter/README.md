@@ -14,7 +14,7 @@ node serve.mjs        # → http://127.0.0.1:4188/
 
 **不要直接双击 `index.html`**：`file://` 下 Chromium 会因 CORS 拒绝加载本地 woff2 字体，三族字体回退到系统字体后视觉就不成立了。也可以放进任意静态服务器，只要走 `http://`。
 
-实测（`--no-external` 无头浏览器，1440×900）：`RESULT CLEAN` — 0 console 错误、0 请求失败、0 外联；4 个字体全部 `loaded`，Drop Cap 花体生效。实测截图见 Skill 的 `references/preview-hero.png` 与 `references/preview-body.png`。
+实测（`--no-external` 无头浏览器，1440×900）：`RESULT CLEAN` — 0 console 错误、0 请求失败、0 外联；4 个字体全部 `loaded`，Drop Cap 花体生效。
 
 ## 文件
 
@@ -23,7 +23,7 @@ node serve.mjs        # → http://127.0.0.1:4188/
 | `index.html` | 编辑内容范式页：深色封面 + 灰绿主底（`#dcded1`）正文区 + 12 列卡片 + 云卡片 + `13.9%` 侧栏目录 |
 | `portfolio.html` | 作品集范式页：真 3D 四层舞台（`stage3d` + `hero-intro`）+ 中文排印适配 + 跨章擦镜与粒子场 |
 | `css/tokens.css` | 全部设计令牌：主底色 `--c-page-bg`、`13.9%` 侧栏、四族字体、12 字阶、10 条缓动与动效常数 |
-| `css/layout.css` | 骨架与组件：栅格、章节、Drop Cap、CTA、播放键、云卡、侧栏、响应式 |
+| `css/layout.css` | 骨架与组件：默认灰绿底（C-09）、栅格、章节、Drop Cap、CTA、播放键、云卡、`13.9%` 侧栏、C-11 首屏 `340×464` 细线框目录卡解锁组件（`.toc-card[data-toc-dock]`） |
 | `css/stage3d.css` | 真 3D 舞台：标准 4 层（`-240 / 0 / +40 / +90px`）+ 可选 V3.1 5 层剧场深纵模式（`data-stage-mode="theater"`）+ 静息隐形热区（`.stage3d__hotspot`） |
 | `css/details.css` | 跨章节过渡遮罩（白闪 / 织物擦镜）与粒子画布样式 |
 | `js/motion.js` | 平滑滚动、章节主题联动、stagger 进场、斥力场、视差、阻尼 |

@@ -40,7 +40,7 @@
   /* 暴露阻尼后的归一化指针，供活体角色视线/微转头同步复用 */
   window.__stage3dPointer = { x: 0, y: 0 };
 
-  /* 鼠标只记录目标，阻尼在 tick 里做（0.15 系数来自 cinema-audit §3） */
+  /* 鼠标只记录目标，阻尼在 tick 里做（0.15 系数来自 04 §四） */
   window.addEventListener("pointermove", function (e) {
     mx = (e.clientX / window.innerWidth - 0.5) * 2;
     my = (e.clientY / window.innerHeight - 0.5) * 2;
