@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+  ====================================================================
+  TEMPLATE PAGE —「灰绿纸面编辑内容页」范式（主底 #dcded1 + 卡片 #f7f7ee）
+  复刻对象：原站 sidekick 章节的正文页（source/index.pretty.html:690-830）
+  ====================================================================
+  规则：只替换 SLOT 区块之间的文字与 img src，不要改 class 与层级。
+  所有 class 名与数值均与 references/02-design-tokens.md 一一对应。
+  用 `node serve.mjs` 起本地服务后打开；file:// 直开会被 CORS 拦截字体。
+  ====================================================================
+-->
+<html lang="en" data-nav-theme="dark" data-title-theme="dark" data-sidebar-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editions — Template Page</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/cinema.css">
+</head>
+<body>
+
+<header class="cine-header">
+  <nav class="cine-nav" aria-label="Global">
+    <div class="cine-nav__veil cine-nav__veil--dark"></div>
+    <div class="cine-nav__veil cine-nav__veil--light"></div>
+    <a class="cine-nav__brand" href="#chapter-one">Editions &nbsp;|&nbsp; Winter ’26</a>
+    <ul class="cine-nav__list">
+      <li class="cine-nav__item"><a class="cine-nav__link" href="#chapter-two">Discover</a></li>
+      <li class="cine-nav__item"><a class="cine-nav__link" href="#chapter-three">Search</a></li>
+      <li class="cine-nav__item cine-dropdown" data-open="false"><a class="cine-nav__link" href="#chapter-four" data-dropdown-trigger>Editions</a><div class="cine-dropdown__panel"><a href="#chapter-one">Winter ’26</a><a href="#chapter-two">Summer ’25</a></div></li>
+      <li class="cine-nav__item"><a class="cine-nav__link" href="#chapter-four">Shopify.com</a></li>
+      <li class="cine-nav__item cine-nav__item--pill"><a class="cine-nav__link" href="#chapter-two">Get started</a></li>
+    </ul>
+  </nav>
+</header>
+<img class="cine-geometry" src="assets/davinci-lines.svg" alt="" aria-hidden="true">
+
+
+<div class="page">
+  <!-- ===============================================================
+       A. 左侧常驻罗马数字目录
+       数字由 CSS counter 生成，不要手写 I/II/III
+       =============================================================== -->
+  <aside class="side-nav" aria-label="Chapter index">
+    <div class="side-nav__inner">
+      <ul class="side-nav__list">
+        <!-- SLOT: 目录项；复制 <li> 即可增减章节，数字自动递增 -->
+        <li class="side-nav__item is-active" data-target="chapter-one">
+          <a class="side-nav__link headline-6" href="#chapter-one">
+            <span><span class="side-nav__label">Chapter One</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+        <li class="side-nav__item" data-target="chapter-two">
+          <a class="side-nav__link headline-6" href="#chapter-two">
+            <span><span class="side-nav__label">Chapter Two</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+        <li class="side-nav__item" data-target="chapter-three">
+          <a class="side-nav__link headline-6" href="#chapter-three">
+            <span><span class="side-nav__label">Chapter Three</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+        <li class="side-nav__item" data-target="chapter-four">
+          <a class="side-nav__link headline-6" href="#chapter-four">
+            <span><span class="side-nav__label">Chapter Four</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="page__main">
+
+    <!-- =============================================================
+         章节 1：深色封面 + 花体 Drop Cap 叙事
+         ============================================================= -->
+    <section class="section section--dark" id="chapter-one"
+             data-section-id="chapter-one" data-section-index="0"
+             data-section-scope data-nav-theme="dark"
+             data-title-theme="dark" data-sidebar-theme="dark">
+      <div class="section__body">
+        <div class="cover">
+          <!-- SLOT: 章节大标题（headline-1，72px → clamp 120-220px） -->
+          <h2 class="cover__title headline-1" data-reveal style="--index:0">
+            <span>Chapter One</span>
+          </h2>
+          <!-- SLOT: 叙事导语 —— 首字母会被 ImperialScript 花体接管 -->
+          <div class="cover__lead narrative-1 drop-cap rich-text" data-reveal style="--index:1">
+            <p>Every page begins with a single letter that is larger than the rest. Replace this line with your own sentence and keep the first character intact.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         章节 2：暖米白正文区（本模板的「那一页」核心）
+         结构：小标题（Drop Cap）→ 12 列产品卡 → 全宽浅灰带
+         ============================================================= -->
+    <section class="section section--paper" id="chapter-two"
+             data-section-id="chapter-two" data-section-index="1"
+             data-section-scope data-nav-theme="light"
+             data-title-theme="light" data-sidebar-theme="light">
+      <div class="section__body">
+
+        <!-- SLOT: 段落小标题 -->
+        <h3 class="block__title narrative-1 drop-cap-aligned grid-padding" data-reveal>
+          Insights, proactively delivered
+        </h3>
+
+        <div class="block block--tall grid grid--offset grid-padding">
+
+          <!-- 产品卡 A：文案 + CTA + 媒体 -->
+          <article class="product grid__full" data-reveal style="--index:0">
+            <div class="product__copy">
+              <!-- SLOT -->
+              <h4 class="headline-6 product__title text-dark">Smart suggestions</h4>
+              <div class="rich-text narrative-2 product__text">
+                <p>Personalized recommendations and next steps, drawn from the signals already in your data.</p>
+              </div>
+              <a class="cta" href="#chapter-three">
+                <span class="cta__label">Read the brief</span>
+                <span class="cta__icon">
+                  <svg viewBox="0 0 7 7" fill="none" aria-hidden="true">
+                    <path fill="currentColor" d="m5.105 5.112-.078-2.397-3.599 3.599-.75-.75 3.6-3.599-2.397-.078v-.99l4.058.156.163 4.066-.997-.007Z"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+            <div class="product__media">
+              <!-- SLOT: 图片，保持 aspect-ratio 1016/529 -->
+              <div class="media media--poster">
+                <img class="media__img" src="demo/poster.webp" alt="" loading="lazy">
+              </div>
+            </div>
+          </article>
+
+          <!-- 视频卡：16:9 + 播放按钮 -->
+          <article class="grid__full" data-reveal style="--index:1">
+            <div class="media media--video">
+              <img class="media__img" src="demo/hero-video.jpg" alt="" loading="lazy">
+              <button class="play" aria-label="Play video">
+                <span class="play__box">
+                  <svg class="play__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M23.4 11.6536C23.6667 11.8076 23.6667 12.1925 23.4 12.3464L6.6 22.0459C6.33333 22.1999 6 22.0074 6 21.6995L6 2.30051C6 1.99259 6.33333 1.80014 6.6 1.9541L23.4 11.6536Z" fill="currentColor"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <!-- 全宽浅灰带 -->
+          <div class="band grid__full" data-reveal style="--index:2">
+            <p class="narrative-2">This band uses <code>#dcdcd0</code>, never pure white or black.</p>
+            <hr class="rule" style="margin-top:20px">
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         章节 3：层叠云卡片（斥力场 + 视差）
+         ============================================================= -->
+    <section class="section section--paper" id="chapter-three"
+             data-section-id="chapter-three" data-section-index="2"
+             data-section-scope data-nav-theme="light"
+             data-title-theme="light" data-sidebar-theme="light">
+      <div class="section__body">
+        <h3 class="block__title narrative-1 drop-cap-aligned grid-padding" data-reveal>
+          Complexity, delegated
+        </h3>
+
+        <div class="block grid--offset grid-padding">
+          <div class="cloud grid__full" data-cloud-field data-damp data-reveal>
+            <img class="cloud__bg" src="demo/cloud-bg.png" alt="" aria-hidden="true">
+            <div class="cloud__layer">
+              <div class="cine-glow-card is-active" data-burst style="position:absolute;left:8%;top:46%;width:300px;padding:13px;display:flex;flex-direction:column;gap:24px">
+              <img class="cine-glow-card__halo" src="assets/card-glow.png" alt="">
+              <div class="cine-glow-card__text">A card that carries its own light</div>
+              <div class="cine-glow-card__btn"><svg viewBox="0 0 9 11" fill="none"><path d="M1 4.6 4.375 1 7.75 4.6M4.375 1v9" stroke="#292919" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+              <!-- SLOT: 卡片；data-base-scale / data-base-opacity 决定静止态 -->
+              <div class="cloud-card cloud-card-interactive cloud-card-parallax"
+                   style="left:6%; top:12%" data-base-scale="0.4" data-base-opacity="0.4">
+                <div class="cloud-card__inner">
+                  <div class="cloud-card__text">A note that follows the cursor</div>
+                  <div class="cloud-card__btn"></div>
+                </div>
+              </div>
+              <div class="cloud-card cloud-card-interactive cloud-card-parallax"
+                   style="left:45%; top:-4%" data-base-scale="0.5" data-base-opacity="0.4">
+                <div class="cloud-card__inner">
+                  <div class="cloud-card__text">A second note, slightly closer</div>
+                  <div class="cloud-card__btn"></div>
+                </div>
+              </div>
+              <div class="cloud-card cloud-card-interactive cloud-card-parallax"
+                   style="left:24%; top:52%" data-base-scale="0.45" data-base-opacity="0.4">
+                <div class="cloud-card__inner">
+                  <div class="cloud-card__text">And a third one below</div>
+                  <div class="cloud-card__btn"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         章节 4：三栏图卡
+         ============================================================= -->
+    <section class="section section--paper" id="chapter-four"
+             data-section-id="chapter-four" data-section-index="3"
+             data-section-scope data-nav-theme="light"
+             data-title-theme="light" data-sidebar-theme="light">
+      <div class="section__body">
+        <h3 class="block__title narrative-1 drop-cap-aligned grid-padding" data-reveal>
+          Small things, in threes
+        </h3>
+        <div class="block grid grid--offset grid-padding">
+          <!-- SLOT: 三张图卡，col-span 各占 4/12 -->
+          <article class="grid__four" data-reveal style="--index:0">
+            <div class="media media--poster"><img class="media__img" src="demo/card-a.jpg" alt="" loading="lazy"></div>
+            <h4 class="headline-6" style="margin-top:15px">First card</h4>
+          </article>
+          <article class="grid__four" data-reveal style="--index:1">
+            <div class="media media--poster"><img class="media__img" src="demo/card-b.jpg" alt="" loading="lazy"></div>
+            <h4 class="headline-6" style="margin-top:15px">Second card</h4>
+          </article>
+          <article class="grid__four" data-reveal style="--index:2">
+            <div class="media media--poster"><img class="media__img" src="demo/card-c.jpg" alt="" loading="lazy"></div>
+            <h4 class="headline-6" style="margin-top:15px">Third card</h4>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vendor/gsap/gsap.min.js" defer></script>
+<script src="vendor/gsap/ScrollTrigger.min.js" defer></script>
+<script src="js/motion.js" defer></script>
+<script src="js/cinema.js" defer></script>
+<script src="js/cinematic.js" defer></script>
+</body>
+</html>

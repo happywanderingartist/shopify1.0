@@ -1,0 +1,170 @@
+/* =====================================================================
+ * tokens.css — Shopify Winter 2026 视觉设计令牌
+ * 所有数值来自原镜像：
+ *   assets/cdn.shopify.com/oxygen-v2/.../assets/tailwind-G-N6aznT.css
+ *   assets/cdn.shopify.com/oxygen-v2/.../assets/fonts-latin-CzfLCQn_.css
+ * 单位与类名保持原站语义；改这里 = 改全站皮肤。
+ * ===================================================================== */
+
+/* ---------- 字体：本地化，零外联 ---------- */
+@font-face {
+  font-family: NeueMontreal;
+  src: url("../fonts/NeueMontreal-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+@font-face {
+  font-family: HWCigars;
+  src: url("../fonts/HWCigars-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  font-feature-settings: "liga" 1, "dlig" 1, "kern" 1, "smcp" 1, "c2sc" 1, "case" 1;
+}
+@font-face {
+  font-family: ImperialScript;
+  src: url("../fonts/ImperialScript-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: Inter-Variable;
+  src: url("../fonts/Inter-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------- 1. 颜色：灰绿页面主底 + 米白卡片 + 墨色 + 三级灰阶 ---------- */
+  --c-page-bg:    #dcded1;  /* 浅色页面主底色（29 帧录屏实测，01 §一 / C-09） */
+  --c-card-paper: #f7f7ee;  /* 卡片与浮层纸面底色，非整页底色（C-09） */
+  --c-paper:      #f7f7ee;  /* .bg-light / .text-light — 卡片纸面、反白字 */
+  --c-ink:        #292919;  /* .bg-dark  / .text-dark   — 网页墨色、正文（严禁用于插画暗部） */
+  --c-grey-light: #dcdcd0;  /* .bg-grey-light — 分割线、边框、浅灰带 */
+  --c-grey-mid:   #909083;  /* .bg-grey-mid   — 中灰、次级信息 */
+  --c-grey-dark:  #5c5c4e;  /* .bg-grey-dark  — 深灰、链接 */
+  --c-black:      #000000;  /* body 基底（深色章节） */
+  --c-white:      #ffffff;  /* 卡片内底、播放图标 */
+
+  --c-paper-60:   #f7f7ee99; /* .text-light/60 — 反白 60% */
+  --c-ink-60:     #29291999; /* light 主题罗马数字 */
+  --c-ink-10:     #2929191a; /* light 主题细线 */
+  --c-ink-30:     #2929194d; /* .square-button 半透底 */
+  --c-nav-light:  #e2e2d9;   /* light 主题移动导航底 */
+  --c-accent:     #8051ff;   /* 卡片激活态按钮 */
+  --c-magenta:    #ea135e;   /* 荧光玫红：仅擦镜织物瞬间，实测自 01 购物袋 layers-breakdown §1 */
+  --c-orbital:    #d9d9d9;   /* 轨道点光晕 rgba(217,217,217,.8) */
+  --c-focus:      #57afdf;   /* focus ring */
+
+  /* ---------- 2. 字体族分工（不要互换） ---------- */
+  --f-sans:   NeueMontreal, Helvetica, Arial, sans-serif;        /* 标题 / UI */
+  --f-serif:  HWCigars, Georgia, "Times New Roman", serif;      /* 叙事正文 / 罗马数字 */
+  --f-script: ImperialScript, Georgia, serif;                   /* 仅 Drop Cap 首字母 */
+  --f-ui:     Inter-Variable, NeueMontreal, sans-serif;          /* 卡片内小字 */
+  --f-fallback: ui-sans-serif, system-ui, sans-serif;
+
+  /* ---------- 3. 字重 / 基础 ---------- */
+  --w-normal: 400;
+  --w-medium: 500;
+  --w-semibold: 600;
+  --w-bold: 700;
+
+  /* ---------- 4. 间距刻度：原站类名数字 = px 值 ----------
+   * 实测：py-40 → 2.5rem(40px)、mb-70 → 4.375rem(70px)、
+   *       pb-120 → 7.5rem(120px)、px-12 → .75rem(12px)、p-20 → 1.25rem(20px)
+   * 即 spacing scale 被定为 1px/单位，而非 Tailwind 默认 .25rem。
+   * -------------------------------------------------------- */
+  --sp: 1px;                    /* 1 单位 */
+  --sp-grid: 12px;              /* --spacing-grid-spacing */
+  --sp-grid-md: clamp(12px, 1vw, 16px); /* --spacing-grid-spacing-md */
+  --sp-row: 2.5rem;             /* .grid-template-with-gaps row-gap 基础 */
+  --sp-row-lg: 4rem;            /* ≥1080px row-gap */
+
+  /* 常用节奏（照抄原站实际使用值） */
+  --sp-3: 3px;    --sp-5: 5px;    --sp-7: 7px;    --sp-8: 8px;
+  --sp-10: 10px;  --sp-11: 11px;  --sp-12: 12px;  --sp-13: 13px;
+  --sp-15: 15px;  --sp-20: 20px;  --sp-24: 24px;  --sp-40: 40px;
+  --sp-60: 60px;  --sp-70: 70px;  --sp-80: 80px;  --sp-100: 100px;
+  --sp-120: 120px; --sp-130: 130px;
+
+  /* ---------- 5. 布局 ---------- */
+  --container: 105rem;          /* 1680px，.max-w-container */
+  --cols: 12;
+  --sidebar-w: 13.9%;           /* 1440px 视口实测 ~200px = 13.9%（C-10） */
+  --content-w: 86.1%;           /* 对应 13.9% 左栏的右侧主舞台区 */
+  --content-max: 86.1%;         /* global-lg 主内容上限 */
+  --aspect-video: 16 / 9;       /* 1920/1080 */
+  --aspect-poster: 1016 / 529;
+  --aspect-card: 340 / 100;     /* md 卡片比例；基础 245/107 */
+
+  /* ---------- 6. 圆角 ---------- */
+  --r-1: .0625rem;  /* 1px */
+  --r-2: .125rem;   /* 2px */
+  --r-3: .1875rem;  /* 3px — CTA / tooltip / modal */
+  --r-4: .25rem;    /* 4px */
+  --r-8: .5rem;     /* 8px */
+  --r-10: .625rem;  /* 10px */
+  --r-12: .75rem;   /* 12px — .rounded-12 / .cloud-card-bg */
+  --r-14: .875rem;  /* 14px */
+  --r-card: 12px;              /* 卡片统一 12px */
+  --r-organ: 75px 100px 100px 20px; /* 异形卡片 */
+  --r-pill: 3.40282e38px;
+
+  /* ---------- 7. 阴影 ---------- */
+  --sh-card: 3px 6px 12px rgba(0, 0, 0, .13);
+  --sh-orbital: 0 0 20px rgba(217, 217, 217, .8);
+
+  /* ---------- 8. 缓动曲线（全部来自真实源码） ---------- */
+  --e-default:   cubic-bezier(.4, 0, .2, 1);
+  --e-in:        cubic-bezier(.4, 0, 1, 1);
+  --e-out:       cubic-bezier(0, 0, .2, 1);
+  --e-in-out:    cubic-bezier(.4, 0, .2, 1);
+  --e-back:      cubic-bezier(.34, 1.56, .64, 1);   /* 卡片回弹 */
+  --e-lines:     cubic-bezier(.34, .22, .47, .84);  /* 线条行进 */
+  --e-complete:  cubic-bezier(.72, .16, .19, .96);  /* 打勾 / 入场滑动 */
+  --e-fade-out:  cubic-bezier(.25, .46, .45, .94);
+  --e-scroll:    cubic-bezier(.41, .19, .13, .95);  /* 滚动态切换 */
+  --e-loading:   cubic-bezier(.45, .28, .34, .84);
+  /* easeOutExpo 变体（JS）：1.001 - 2^(-10t) */
+
+  /* ---------- 9. 时长 ---------- */
+  --t-default: .15s;
+  --t-hover: .3s;
+  --t-body: .6s;                /* body 主题过渡 */
+  --t-card: .4s;                /* 卡片回弹 */
+  --t-fade-out: .52s;
+  --t-lines: 3s;
+  --t-lines-complete: 1s;
+  --t-lines-loading: 6s;
+  --t-slide: .6s;
+  --t-scroll-state: .6s;
+  --t-stagger-fade: 75ms;
+  --t-stagger-slide: 20ms;
+  --t-fade-delay: .2s;
+  --t-intro: 5000ms;            /* Theatre intro */
+  --t-intro-delay: 100ms;
+
+  /* ---------- 10. 动效常量（JS 侧引用，保持同源） ---------- */
+  --motion-lerp: .1;            /* Lenis 平滑系数 */
+  --motion-damp: .15;           /* 3D / overlay 阻尼 */
+  --motion-parallax: -15px;     /* 卡片视差系数 */
+  --motion-repulse-dist: 300;   /* 斥力场半径 */
+  --motion-repulse-str: 20;     /* 斥力强度 */
+  --motion-scroll-gate: 100px;  /* data-scrolled 阈值 */
+
+  /* ---------- 11. 层级 ---------- */
+  --z-cloud: 1;
+  --z-media: 2;
+  --z-play: 10;
+  --z-nav: 100;
+  --z-modal: 10000;
+}
+
+/* ---------- 断点（原站真实 min-width） ----------
+ * 300px / 375px / 640px / 769px(md) / 940px(global-lg)
+ * 1080px(lg) / 1280px(xl) / 1680px / 1712px
+ * CSS 无法用变量写 @media，见 layout.css 里的注释对照表。
+ * ---------------------------------------------- */

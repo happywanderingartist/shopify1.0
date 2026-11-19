@@ -1,6 +1,0 @@
-{
-  "name": "Shopify Editions Design System V3 Studio",
-  "description": "Shopify Editions Winter 2026 设计系统 Skill 第三版重构工作台、冲突裁决、去重矩阵与三把尺子实测沙盒。",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

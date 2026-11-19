@@ -1,0 +1,151 @@
+/* =====================================================================
+ * 真 3D 分层舞台（stage3d）
+ * ---------------------------------------------------------------------
+ * 原理对照 Shopify Editions 首页：一个透视相机 + 独立 mesh 层。
+ * 相机只写 .stage3d 容器的 transform，各层用固定 translateZ 放在不同深度，
+ * 位移差由 CSS 透视自动算出来 —— 不是给每层手写四套速率。
+ *
+ * 层深（px）：bg −240 / subject 0 / fx +40 / prop +90（与下方生效 CSS 一致，C-13）
+ * 四层 = 背景 / 人物 / 物品 / 动效，对应 Shopify 首页的 bg / fg / props / effects。
+ * 数值来自 CSS 3D 空间重参数化，不是原站 Three.js 原始坐标（推导见 references/04-motion-and-stage3d.md §二）。
+ * ===================================================================== */
+
+.stage3d {
+  position: absolute;
+  inset: 0;              /* 撑满 .hero__media（父级由 hero 的 min-height 定高） */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 1000px;
+  perspective-origin: var(--cam-origin-x, 50%) var(--cam-origin-y, 50%);
+  isolation: isolate;
+  background: var(--c-page-bg);
+}
+
+/* 相机载体：唯一被 JS 写 transform 的元素。四层都是它的子级，
+   透视投影让近层位移大、远层位移小，联动由此产生。 */
+.stage3d__camera {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translate3d(var(--cam-x, 0px), var(--cam-y, 0px), var(--cam-z, 0px))
+             rotateX(var(--cam-rx, 0deg)) rotateY(var(--cam-ry, 0deg));
+  will-change: transform;
+}
+
+/* 每层填满舞台，translateZ 固定。translateZ 为正 = 靠近相机 = 动得更多。 */
+.stage3d__layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.stage3d__layer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 背景单压暗 + 微虚化，沉进暗场，让人物成为唯一清晰的主体。
+   全局罩染只做统一色偏，不再把人物一起压灰 —— 对应景深统一纪律。 */
+.stage3d__layer--bg img {
+  filter: brightness(.66) saturate(.72);
+}
+/* 透明切图层不要 cover 裁切，用 contain 保全身 */
+.stage3d__layer--cutout img { object-fit: contain; }
+
+/* 背景层吃 --bg-push：首屏序列里 1 → 1.52（01 §五 / 04 §三实测），
+   比人物动得多，这才是推镜视差的来源。静止/交互态回落到 1。 */
+.stage3d__layer--bg      { transform: translateZ(-240px) scale(calc(1.32 * var(--bg-push, 1))); z-index: 1; }
+.stage3d__layer--subject { transform: translateZ(0px);               z-index: 3; }
+.stage3d__layer--fx      { transform: translateZ(40px);              z-index: 4; }
+.stage3d__layer--prop    { transform: translateZ(90px);              z-index: 5; }
+
+/* 切图层用 contain 保住完整轮廓，再按设计尺寸缩放。
+   人物靠右站立、占约 62% 高；道具缩小挂右上，不压住人物脸。
+   接地阴影使用冷青蓝暗部 rgba(20,23,34)（01 §一 / C-01，禁止暖棕或死黑阴影）。 */
+.stage3d__layer--subject img {
+  object-fit: contain; object-position: 50% 50%;
+  width: 44%; height: 78%; margin-left: 54%; margin-top: 14%;
+  filter: saturate(.82) brightness(.92) drop-shadow(14px 18px 20px rgba(20,23,34,.55));
+}
+.stage3d__layer--prop img {
+  object-fit: contain; object-position: 50% 50%;
+  width: 22%; height: 34%; margin-left: 76%; margin-top: 8%;
+  filter: saturate(.85) brightness(.9) drop-shadow(8px 12px 14px rgba(20,23,34,.50));
+}
+
+/* 动效层：把已有的几何线 SVG 与光斑放进 3D 空间，跟着相机一起走。
+   这一层不承载图片，放装饰元素；pointer-events 关闭避免挡住交互。 */
+.stage3d__layer--fx { pointer-events: none; }
+.stage3d__geometry {
+  position: absolute;
+  right: 6%; top: 8%;
+  width: 34%; height: 74%;
+  object-fit: contain;
+  opacity: .30;
+  mix-blend-mode: multiply;
+}
+.stage3d__spark {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(247,235,190,.9) 0%, rgba(247,235,190,0) 70%);
+  animation: stage3d-float 6s ease-in-out infinite;
+}
+.stage3d__spark--a { width: 90px; height: 90px; left: 58%; top: 22%; animation-delay: 0s; }
+.stage3d__spark--b { width: 54px; height: 54px; right: 14%; top: 52%; animation-delay: -2.4s; }
+@keyframes stage3d-float {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: .55; }
+  50%      { transform: translate3d(0, -18px, 0); opacity: .95; }
+}
+
+/* 爆发闪光层：1.77s 瞬间全画面提亮，60ms 亮 / 460ms 暗。
+   放在相机外、舞台顶层，不参与推镜（灯不动，画面才不乱）。 */
+.stage3d__flash {
+  position: absolute; inset: 0; z-index: 8; opacity: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 62% 40%,
+    rgba(247,235,190,.92) 0%, rgba(247,235,190,.45) 38%, rgba(247,235,190,0) 74%);
+  mix-blend-mode: screen;
+  will-change: opacity;
+}
+
+/* 已按 C-01 拔除旧版 .stage3d__tone 橄榄褐罩染层（原稿暗部为冷青蓝 189°–224°，严禁再盖暖棕遮罩）。 */
+
+/* 舞台上的文字：Shopify 式巨字压左，锁定 NeueMontreal Bold 无衬线体（C-12） */
+.stage3d__title {
+  position: absolute;
+  left: var(--sp-12);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  font-family: var(--f-sans);
+  font-weight: var(--w-bold);
+  font-size: clamp(3.2rem, 9vw, 8.4rem);
+  line-height: .90;
+  letter-spacing: -.03em;
+  color: var(--c-paper);
+  text-shadow: 0 2px 24px rgba(20,23,34,.35);
+  pointer-events: none;
+}
+.stage3d__title span { display: block; }
+
+/* 舞台底部的图注（等宽小字，语义为"图层索引"而非装饰） */
+.stage3d__caption {
+  position: absolute;
+  right: var(--sp-12);
+  bottom: var(--sp-12);
+  z-index: 5;
+  font-family: var(--f-ui);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--c-paper);
+  opacity: .82;
+  pointer-events: none;
+}
+
+/* 鼠标视差关闭 / reduced-motion：层回正，不做任何位移 */
+@media (prefers-reduced-motion: reduce) {
+  .stage3d__camera { transform: none !important; }
+  .stage3d__layer { transform: none !important; }
+}
