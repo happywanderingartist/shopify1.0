@@ -75,7 +75,7 @@
 | **容器与分栏** | `--container: 105rem`（`1680px`）; `--cols: 12`; `--sidebar-w: 13.9%`; `--content-w: 86.1%`; `--content-max: 86.1%` | 阶段 B 已修正 `20% → 13.9%`（`1440` 视口下 `200px`）；`<769px` 为 `2` 列，`≥769px` 为 `12` 列子网格 | `← tokens.css:92-96, 01 §二 #8` |
 | **媒体比例** | `--aspect-video: 16 / 9`; `--aspect-poster: 1016 / 529`; `--aspect-card: 340 / 100`（基础 `245/107`） | 全部媒体容器锁比例，绝不拉伸变形 | `← tokens.css:97-99` |
 | **圆角** | `--r-1..4`（`1/2/3/4px`）; `--r-8/10/12/14`（`8/10/12/14px`）; `--r-card: 12px`; `--r-organ: 75px 100px 100px 20px`; `--r-pill: 3.40282e38px` | 卡片 `12px`、CTA/tooltip/modal `3px`、播放键 `6px`、图标盒 `2px`、异形卡 `--r-organ` | `← tokens.css:102-112, design-spec.md D7` |
-| **阴影与层级** | `--sh-card: 3px 6px 12px rgba(0,0,0,.13)`; `--sh-orbital: 0 0 20px rgba(217,217,217,.8)`; `--z-cloud: 1`; `--z-media: 2`; `--z-play: 10`; `--z-nav: 100`; `--z-modal: 10000` | 五级 `z-index` 严格分层，导航常驻 `100` 压过正文媒体 | `← tokens.css:115-116, 157-161` |
+| **阴影与层级** | `--sh-card: 3px 6px 12px rgba(0,0,0,.13)`; `--sh-orbital: 0 0 20px rgba(217,217,217,.8)`; `--z-cloud: 1`; `--z-media: 2`; `--z-play: 10`; `--z-nav: 100`; `--z-modal: 10000` | 五级 `z-index` 严格分层，导航常驻 `100` 压过正文媒体；若页面存在独立全屏浮层/弹窗且顶栏使用 `9999`，浮层必须严格大于顶栏（`≥ var(--z-modal)` 或 `12000`），防止顶栏文字透出 `← V3.3` | `← tokens.css:115-116, 157-161` |
 | **垂直节奏** | Hero `150svh`（`translate-y-[-100%]`）；章封面 `70svh → md 140svh`；sticky 封面 `top: 110px`；全宽灰带 `py-40 → lg py-60` | 章节留整屏、块留 `60–120px`、元素留 `15–24px`，禁止压扁留白 | `← design-spec.md D13` |
 
 **9 级响应式断点（真实 `min-width` 阈值）** `← tokens.css:164-166, design-spec.md D11`：
@@ -125,7 +125,7 @@
 
 | 页面区块 | 根容器与核心子元素类名 | 配对 `data-*`（行为见 `04 §五`） | 状态类 / 主题联动 | 出处 |
 |---|---|---|---|---|
-| **页面外壳** | `html` → `.main-wrapper.max-w-container` → `main.safe-min-h-svh`；顶栏含 `[data-sound-toggle]` 静音开关 | `html[data-nav-theme="dark\|light"]`, `data-title-theme`, `data-sidebar-theme`, `data-sound-toggle` | `light` 态切灰绿主底与深墨色；`dark` 态切深底反白 `← layout.css:11-36` | `← blueprint.md §1.1, design-spec.md D10` |
+| **页面外壳** | `html` → `.main-wrapper.max-w-container` → `main.safe-min-h-svh`（全站默认全程静音，**严禁再放声音开关**） | `html[data-nav-theme="dark\|light"]`, `data-title-theme`, `data-sidebar-theme` | `light` 态切灰绿主底与深墨色；`dark` 态切深底反白 `← layout.css:11-36, V3.3` | `← blueprint.md §1.1, design-spec.md D10` |
 | **首屏目录卡与左侧栏** | 可选 `.toc-card[data-toc-dock]`（`340×464` 细线框）+ `aside.side-nav` → `nav` → `svg.davinci-lines` + `ol` → `li.side-nav__item` → `a.side-nav__link`（`.side-nav__label` + `.side-nav__rule` + `.side-nav__num`） | `data-toc-dock`, `data-section-name="side-nav"`, `data-initiated`, `data-scrolled`, `data-sidebar-ready`, `data-sidebar-loaded` | 滚过 `100px` 由 `card` 解锁为 `docked`；`.is-active` 加粗当前章并隐去罗马数字 `← layout.css:52-206` | `← blueprint.md §1.2, C-11` |
 | **3D 首屏舞台** | `.hero` → `.stage3d` → `.stage3d__camera` → 标准 4 层（`--bg` `.stage3d__img` / `--subject` / `--fx` / `--prop`）或 5 层剧场（`--bg` / `--mid` / `--arch` / `--subject` / `--fx` / `--fg`）+ `.stage3d__hotspot`（`.stage3d__hotspot-ring` 常态 `opacity: 0`）+ 相机外 `.stage3d__flash` | `data-stage3d`, `data-stage-mode="theater"`, `data-autoplay`, `data-dolly`, `data-drift` | **严禁**在 `.stage3d` 背景图上挂 `.hero__img` 或 `.stage3d__tone`；热区悬停才用 `var(--c-magenta)` 显露 `← stage3d.css:60-245` | `← stage3d.css, C-15, V3.1` |
 | **常规章节** | `section.section`（`id="<slug>"`）→ `.chapter-cover`（`.headline-1`）+ `.narrative-1.drop-cap` + `.grid-template-with-gaps` → `article.grid-cols-subgrid` | `data-section-id`, `data-section-index`, `data-section-scope`, `data-nav-theme`, `data-transition` | 滚入视口由 `IntersectionObserver` 同步根元素主题 | `← blueprint.md §1.1, §1.3` |
@@ -146,6 +146,7 @@
 ### 4.2 左侧 `13.9%` 罗马数字导航栏
 - **有效列宽**：`≥940px`（`global-lg`）切 `position: fixed; top: 0; bottom: 0; left: 0; z-index: var(--z-nav)`，视觉导航列宽锁定 `width: var(--sidebar-w)`（`13.9%`，`1440px` 视口下约 `200px`；`≥1280px` 贴齐 `left: calc((100% - var(--container)) / 2)`），右侧主内容区占 `86.1%`（`margin-left: auto`） `← 01 §二 #8, tokens.css:94-96, layout.css:56`。
 - **CSS 生成罗马数字与悬停虚线**：`12` 章目录（`I` 至 `XII`，`Hero` 不入列）每项设行内 `--index`，罗马数字**由 CSS `::after` 生成而非 DOM 文本**，字体 `var(--f-serif)`、`0.6875rem`；当前激活章 `.is-active` 文字加粗并隐去罗马数字；标签后挂 `1px` 虚线（`background-image: linear-gradient(270deg, currentColor 1px, transparent 1px); background-size: 3px 30%`），hover 延迟 `0.15s` 通过 `clip-path: inset(0)` 展开 `← design-spec.md D6, layout.css:31-36`。
+- **侧栏底脚避让红线（V3.3 新增）**：若左侧栏底部挂有绝对定位的版权区（`.side-nav__foot`），目录容器（`.side-nav__inner`）必须预留充足的底部安全内边距（如 `padding-bottom` 覆盖版权区高度再加 `24–36px`），确保在较矮视口下最后一条章节目录绝不被底脚文字遮盖重叠 `← V3.3 实战蒸馏`。
 
 ### 4.3 `50–56px` 半透明顶栏与刻意遮字构图
 - **顶栏高度与锚点补偿**：顶栏固定在视口顶部，桌面高 `50px`、小屏/starter 预留 `56px`（`html` 同步设 `scroll-padding-top: 60px`，`≥940px` 改 `50px`）；内部 `header > nav` 叠暗/亮双层渐变遮罩（`opacity: 0.75`，过渡 `var(--t-hover)`），`5` 个顶栏导航项按 `500 / 540 / 580 / 620 / 660ms` 阶梯显现 `← design-spec.md D13, layout.css:477, cinema-audit.md §2`。

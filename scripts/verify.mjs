@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * verify.mjs — 对生成的新页面做静态验收（零依赖，不启浏览器 · V3.1 六条硬拦截）。
+ * verify.mjs — 对生成的新页面做静态验收（零依赖，不启浏览器 · V3.3 七条硬拦截）。
  *
  *   node scripts/verify.mjs ./assets/starter [--port 4195]
  *
@@ -15,6 +15,8 @@
  *      HTML 禁止 <video>；HTML/CSS/JS 全部零 http(s) 外联；js/*.js 全部通过 Node vm 语法编译
  *   6. 硬拦截 6（V3.1 [data-stage3d] 多层结构与零点击自演）：
  *      含 data-stage3d 的舞台必须含 data-autoplay 且至少具备 3 个 .stage3d__layer 图层
+ *   7. 硬拦截 7（V3.3 默认全程静音：禁合成耳鸣背景音与废弃声音开关）：
+ *      HTML/JS 禁止残留 data-sound-toggle / EditionsSoundEngine；禁止用 AudioContext + createOscillator 合成背景音
  */
 import { createServer } from "node:http";
 import { readdir, readFile, stat } from "node:fs/promises";
@@ -125,6 +127,10 @@ for (const name of htmlFiles) {
   if (external.length) issues.push(`${name}: external refs → ${external.slice(0, 5).join(" | ")}`);
   if (/<video\b/i.test(cleanHtml)) {
     issues.push(`${name}: 出现 <video> 标签（违反铁律：禁止使用视频，须用纯前端分层与动画）`);
+  }
+  /* 硬拦截 7a（V3.3）：HTML 禁止残留已废弃的声音开关 */
+  if (/\bdata-sound-toggle\b/i.test(cleanHtml)) {
+    issues.push(`${name}: 出现已废弃的 data-sound-toggle（违反 V3.3 默认全程静音铁律，请移除声音开关）`);
   }
 
   /* 硬拦截 3 & 6：逐个校验页面内所有 [data-stage3d] 舞台 */
@@ -251,6 +257,14 @@ for (const sub of ["css", "js"]) {
       if (extUrls.length) issues.push(`${rel}: JS 存在外联 URL → ${extUrls.slice(0, 3).join(" | ")}`);
 
       if (ext === ".js") {
+        /* 硬拦截 7b（V3.3）：自定义 JS 禁止残留废弃声场引擎或 Web Audio 振荡器合成背景音 */
+        if (/\bdata-sound-toggle\b|\bEditionsSoundEngine\b/.test(code)) {
+          issues.push(`${rel}: 残留已废弃的合成声场引擎或声音开关引用（违反 V3.3 默认全程静音铁律）`);
+        }
+        if (/(?:AudioContext|webkitAudioContext)/.test(code) && /\bcreateOscillator\s*\(/.test(code)) {
+          issues.push(`${rel}: 检出 Web Audio 振荡器合成背景音（违反 V3.3 默认全程静音铁律：纯振荡器底噪如耳鸣，已禁止）`);
+        }
+
         jsCheckedCount += 1;
         try {
           new vm.Script(raw, { filename: rel });
@@ -264,7 +278,7 @@ for (const sub of ["css", "js"]) {
 
 server.close();
 console.log(
-  `checked html: ${htmlFiles.length}  refs: ${refs.size}  fonts: 4  alpha-pngs: ${alphaCheckedCount}  js: ${jsCheckedCount}  external: ${totalExternal}  style-guards: 6`
+  `checked html: ${htmlFiles.length}  refs: ${refs.size}  fonts: 4  alpha-pngs: ${alphaCheckedCount}  js: ${jsCheckedCount}  external: ${totalExternal}  style-guards: 7`
 );
 if (issues.length) { console.log("VERIFY FAIL\n- " + issues.join("\n- ")); process.exit(1); }
-console.log("VERIFY PASS — 首页 200、本地资源全 200、零外联、字体齐备、六条硬拦截全通过");
+console.log("VERIFY PASS — 首页 200、本地资源全 200、零外联、字体齐备、七条硬拦截全通过");

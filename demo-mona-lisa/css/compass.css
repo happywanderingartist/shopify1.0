@@ -1,0 +1,592 @@
+/* =====================================================================
+ * compass.css — 文艺复兴哑光古铜星盘罗盘时钟目录（独立全屏覆盖层）
+ * ---------------------------------------------------------------------
+ * 美学宪法：
+ *   - 深空冷青蓝丝绒底（#0b111c → #141722，色相 198–224°，与油画暗部同源）
+ *   - 哑光古铜天文星盘（#b89b62 / #8f7443 / #57482d，克制仪器氧化黄铜）
+ *   - 极细洋红针尖与高亮微芒（#ea135e / #ff0cdb，极小面积画龙点睛）
+ *   - 指向章节名平滑放大 + 呼吸闪烁微光（@keyframes compass-chapter-glimmer）
+ *   - 100% 离线字体、零外链、零背景音效、完整适配 prefers-reduced-motion
+ * ===================================================================== */
+
+/* ---- 顶栏罗盘一键唤出按钮（与顶栏单行节奏无缝融合） ---- */
+.cine-nav__compass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 10px;
+  border: 1px solid rgba(184, 155, 98, 0.48);
+  border-radius: 2px;
+  background: rgba(14, 20, 32, 0.56);
+  color: #e6d7b6;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.cine-nav__compass-btn:hover,
+.cine-nav__compass-btn:focus-visible {
+  border-color: #d8be84;
+  background: rgba(24, 30, 44, 0.88);
+  color: var(--c-paper);
+  outline: none;
+}
+
+.cine-nav__compass-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: #c8ad72;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cine-nav__compass-btn:hover .cine-nav__compass-icon {
+  transform: rotate(45deg);
+}
+
+html[data-nav-theme="light"] .cine-nav__compass-btn {
+  background: rgba(247, 247, 238, 0.72);
+  border-color: rgba(122, 97, 52, 0.45);
+  color: #362e1e;
+}
+
+html[data-nav-theme="light"] .cine-nav__compass-btn .cine-nav__compass-icon {
+  color: #8a6c34;
+}
+
+html[data-nav-theme="light"] .cine-nav__compass-btn:hover,
+html[data-nav-theme="light"] .cine-nav__compass-btn:focus-visible {
+  background: #f7f7ee;
+  border-color: #8a6c34;
+  color: #141722;
+}
+
+/* 左侧边栏底部克制罗盘唤出入口 + 留出清晰垂直间距防重叠 */
+.side-nav__inner {
+  padding-bottom: 84px;
+}
+
+.side-nav__compass-trigger {
+  margin-top: 8px;
+  padding: 6px 0 0;
+  border: 0;
+  border-top: 1px solid rgba(184, 155, 98, 0.28);
+  background: none;
+  color: inherit;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.78;
+  transition: opacity 180ms ease, color 180ms ease;
+}
+
+.side-nav__compass-trigger:hover,
+.side-nav__compass-trigger:focus-visible {
+  opacity: 1;
+  color: #d8be84;
+  outline: none;
+}
+
+/* ---- 独立全屏罗盘目录层（层级高于顶栏 9999，完全纯净无透字） ---- */
+.compass-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    radial-gradient(58% 58% at 32% 52%, rgba(28, 44, 58, 0.52) 0%, rgba(11, 17, 28, 0.94) 68%, rgba(8, 12, 20, 0.98) 100%),
+    #0b111c;
+  color: var(--c-paper);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1), visibility 320ms linear;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.compass-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 极细文艺复兴手稿边界线与星象十字准星 */
+.compass-modal::before {
+  content: "";
+  position: absolute;
+  inset: clamp(14px, 2vw, 26px);
+  border: 1px solid rgba(184, 155, 98, 0.16);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.compass-modal__header,
+.compass-modal__body,
+.compass-modal__footer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(28px, 4.4vw, 68px);
+  padding-right: clamp(28px, 4.4vw, 68px);
+}
+
+/* ---- 顶部策展抬头与关闭钮 ---- */
+.compass-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: clamp(26px, 3.6vh, 42px);
+  padding-bottom: 12px;
+}
+
+.compass-modal__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(216, 190, 132, 0.84);
+}
+
+.compass-modal__eyebrow-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ea135e;
+  box-shadow: 0 0 8px rgba(234, 19, 94, 0.72);
+}
+
+.compass-modal__close {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border: 1px solid rgba(184, 155, 98, 0.36);
+  border-radius: 2px;
+  background: rgba(16, 22, 34, 0.68);
+  color: var(--c-paper);
+  font-family: var(--f-ui);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.compass-modal__close:hover,
+.compass-modal__close:focus-visible {
+  border-color: #d8be84;
+  background: rgba(28, 36, 52, 0.92);
+  color: #ffffff;
+  outline: none;
+}
+
+.compass-modal__close-key {
+  font-size: 10px;
+  opacity: 0.56;
+  padding-left: 8px;
+  border-left: 1px solid rgba(184, 155, 98, 0.28);
+}
+
+/* ---- 主双栏非对称陈列（左 55% 古铜星盘 · 右 45% 五章目录） ---- */
+.compass-modal__body {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(24px, 4.5vw, 72px);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  min-height: 0;
+}
+
+/* ---- 左侧：文艺复兴哑光古铜星盘罗盘画布 ---- */
+.compass-dial-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.compass-dial-wrap {
+  position: relative;
+  width: min(500px, 44vw, 62vh);
+  aspect-ratio: 1 / 1;
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+  transform: scale(0.94);
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.compass-modal.is-open .compass-dial-wrap {
+  transform: scale(1);
+}
+
+.compass-dial-wrap.is-dragging {
+  cursor: grabbing;
+}
+
+.compass-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 28px 60px rgba(3, 6, 14, 0.65));
+}
+
+/* 星盘缓慢反向运转内星轨 */
+.compass-rete-outer {
+  transform-origin: 260px 260px;
+  animation: compass-rete-spin 110s linear infinite;
+}
+
+.compass-rete-inner {
+  transform-origin: 260px 260px;
+  animation: compass-rete-spin 76s linear infinite reverse;
+}
+
+@keyframes compass-rete-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 罗盘表盘上的五个罗马数字章节方位节点 */
+.compass-station {
+  cursor: pointer;
+}
+
+.compass-station__ring {
+  fill: rgba(14, 21, 33, 0.94);
+  stroke: rgba(184, 155, 98, 0.62);
+  stroke-width: 1.1;
+  transition: stroke 220ms ease, fill 220ms ease, transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.compass-station__pip {
+  fill: rgba(184, 155, 98, 0.45);
+  transition: fill 200ms ease, filter 200ms ease;
+}
+
+.compass-station__roman {
+  font-family: var(--f-serif);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  fill: rgba(220, 222, 209, 0.78);
+  text-anchor: middle;
+  dominant-baseline: central;
+  transition: fill 200ms ease;
+  pointer-events: none;
+}
+
+.compass-station:hover .compass-station__ring,
+.compass-station.is-active .compass-station__ring {
+  fill: rgba(26, 20, 32, 0.96);
+  stroke: #ea135e;
+  stroke-width: 1.5;
+  transform: scale(1.16);
+}
+
+.compass-station.is-active .compass-station__pip {
+  fill: #ff0cdb;
+}
+
+.compass-station.is-active .compass-station__roman {
+  fill: #f7f7ee;
+}
+
+/* 古铜指针组与洋红针尖微光 */
+.compass-needle-group {
+  transform-origin: 260px 260px;
+  will-change: transform;
+}
+
+.compass-needle-tip-glow {
+  filter: drop-shadow(0 0 6px rgba(234, 19, 94, 0.85));
+}
+
+/* 表盘下方精密刻度读数条 */
+.compass-readout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(216, 190, 132, 0.72);
+}
+
+.compass-readout__deg {
+  font-variant-numeric: tabular-nums;
+  color: var(--c-paper);
+  min-width: 44px;
+}
+
+.compass-readout__sep {
+  opacity: 0.34;
+}
+
+/* ---- 右侧：五排编辑级章节目录（指向时平滑放大 + 呼吸闪烁微光） ---- */
+.compass-index-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.compass-index__kicker {
+  margin: 0 0 14px;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(184, 155, 98, 0.74);
+}
+
+.compass-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(184, 155, 98, 0.22);
+}
+
+.compass-item {
+  border-bottom: 1px solid rgba(184, 155, 98, 0.16);
+}
+
+.compass-item__btn {
+  position: relative;
+  width: 100%;
+  padding: clamp(14px, 2vh, 22px) 4px;
+  border: 0;
+  background: none;
+  color: rgba(220, 222, 209, 0.58);
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 14px;
+  row-gap: 4px;
+  transition: color 240ms ease, padding-left 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.compass-item__btn:focus-visible {
+  outline: 1px solid rgba(216, 190, 132, 0.72);
+  outline-offset: 2px;
+}
+
+/* 左侧极细激活指示竖线 */
+.compass-item__btn::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 2px;
+  height: 0;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #d8be84 0%, #ea135e 55%, #ff0cdb 100%);
+  opacity: 0;
+  transition: height 280ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+}
+
+.compass-item__roman {
+  font-family: var(--f-serif);
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: rgba(184, 155, 98, 0.68);
+  letter-spacing: 0.06em;
+  transition: color 240ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.compass-item__title-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transform-origin: left center;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms ease;
+}
+
+.compass-item__title {
+  font-family: var(--f-sans);
+  font-weight: var(--w-bold);
+  font-size: clamp(26px, 3.0vw, 44px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: inherit;
+}
+
+.compass-item__spark {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ea135e;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 220ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.compass-item__deg {
+  font-family: var(--f-ui);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+  color: rgba(184, 155, 98, 0.56);
+  transition: color 220ms ease;
+}
+
+.compass-item__sub {
+  grid-column: 2 / 4;
+  font-family: var(--f-ui);
+  font-size: 12.5px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: rgba(220, 222, 209, 0.42);
+  transition: color 240ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ★ 核心交互：指针指向或鼠标悬停时 —— 平滑放大 1.12× + 克制高贵闪烁微光 ★ */
+.compass-item.is-active .compass-item__btn {
+  color: #f7f7ee;
+  padding-left: 10px;
+}
+
+.compass-item.is-active .compass-item__btn::before {
+  height: 62%;
+  opacity: 1;
+}
+
+.compass-item.is-active .compass-item__roman {
+  color: #d8be84;
+  transform: translateX(2px);
+}
+
+.compass-item.is-active .compass-item__title-wrap {
+  transform: scale(1.12);
+}
+
+.compass-item.is-active .compass-item__title {
+  color: #ffffff;
+  animation: compass-chapter-glimmer 1.65s ease-in-out infinite;
+}
+
+.compass-item.is-active .compass-item__spark {
+  opacity: 1;
+  transform: scale(1);
+  animation: compass-spark-blink 1.15s ease-in-out infinite;
+}
+
+.compass-item.is-active .compass-item__deg {
+  color: #e8c98a;
+}
+
+.compass-item.is-active .compass-item__sub {
+  color: rgba(247, 247, 238, 0.78);
+  transform: translateX(6px);
+}
+
+@keyframes compass-chapter-glimmer {
+  0%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 14px rgba(216, 190, 132, 0.42),
+      0 0 28px rgba(234, 19, 94, 0.32);
+  }
+  45% {
+    opacity: 0.78;
+    text-shadow:
+      0 0 22px rgba(247, 247, 238, 0.65),
+      0 0 38px rgba(255, 12, 219, 0.55);
+  }
+  70% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px rgba(216, 190, 132, 0.28),
+      0 0 18px rgba(234, 19, 94, 0.22);
+  }
+}
+
+@keyframes compass-spark-blink {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 12, 219, 0.92), 0 0 22px rgba(234, 19, 94, 0.56);
+    transform: scale(1.15);
+  }
+  50% {
+    opacity: 0.38;
+    box-shadow: 0 0 4px rgba(234, 19, 94, 0.45);
+    transform: scale(0.75);
+  }
+}
+
+/* ---- 底部极简提示条 ---- */
+.compass-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 10px;
+  padding-bottom: clamp(22px, 3vh, 34px);
+  font-family: var(--f-ui);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(216, 190, 132, 0.52);
+}
+
+/* ---- 响应式适配（平板与移动端：上盘下目） ---- */
+@media (max-width: 939px) {
+  .compass-modal {
+    overflow-y: auto;
+  }
+  .compass-modal__body {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-top: 4px;
+  }
+  .compass-dial-wrap {
+    width: min(310px, 76vw);
+  }
+  .compass-item__btn {
+    padding: 12px 2px;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+  }
+  .compass-item__title {
+    font-size: 24px;
+  }
+  .compass-modal__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compass-rete-outer,
+  .compass-rete-inner,
+  .compass-item.is-active .compass-item__title,
+  .compass-item.is-active .compass-item__spark {
+    animation: none !important;
+  }
+  .compass-item.is-active .compass-item__title {
+    text-shadow: 0 0 14px rgba(216, 190, 132, 0.45);
+  }
+}

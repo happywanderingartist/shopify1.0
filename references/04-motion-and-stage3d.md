@@ -172,17 +172,48 @@ function apply() {
 | **手部实拧道具与节拍轻抬** | 独立亚像素精抠整手 PNG + 枢轴藏进袖口内侧 + **袖口外沿遮片叠绘上方** | 拧旋钮 `idle ±2.6°` / 主动拧 `-6.8° → +8.8°`、`tx -2.8~+4.2px`、`ty -4.2~+1.5px`；同步驱动旋钮高光刻度与柔焦接触影 | **严禁**运行期矩形切手（必断指）、严禁无袖口包覆致腕部脱节 |
 | **薄纱/丝巾微风轻拂** | 仅切**最外沿半透明薄纱**（宽度 `≤ 15%` 外缘），慢速正弦柔波 | 常态 `±0.7px`、阵风峰值 `±2.1px`，角频率 `1.15–1.60 rad/s` | **严禁**切进实心棕色卷发或大幅度狂甩 |
 
-### 4.5 零点击自演剧场总控、离线程序化声场与隐形热点纪律（V3.1 新增）
+### 4.4.5 动态大人物网格蒙皮与真实运动力学铁律（V3.3 新增）
 
-1. **零点击自动连续演出（`ambient-director.js` 范式）**：
-   - 严禁做成「不点按钮就永远死寂」的页面。开场推镜爆发后，场景总控应按 `5–6s` 节拍自动交替演出两条因果链（手动点击控件可随时插播切换）：
+当大人物不再仅是微表情静坐，而是通过 WebGL 网格蒙皮或分层骨架表演**跳跃、腾空、滑板、转体等大幅肢体动作**时，严禁凭直觉乱拧 UV，必须死守以下三条：
+
+1. **头颈刚体零形变保护区（绝不拧脖子）**：
+   - 在垂直归一化坐标中，头部、面部与颈根上方（典型区间 `y < 0.285`）必须设为**刚体保护区**，躯干摆动、肩部对旋与腿部收展的形变权重在此区必须衰减归零；仅允许刚体微幅随全身重心整体平移与极小倾角（`≤ ±2.5°`），以及最外沿碎发末梢微颤，彻底杜绝「脖子拧成麻花」「下巴错位拉长」的穿帮。
+2. **先查真实生物力学，再按阶段拆分驱动（以滑板 Ollie / Kickflip 为范本）**：
+   - 凡涉及真实体育或动作技巧，动笔写关键帧前必须先核对真实动作力学分解，绝不能把整张人物图当刚性木板上下平移。
+   - 以滑板翻板（Ollie / Kickflip）为例，必须按六个连贯物理阶段写入统一驱动参数并严密对齐 3D 滑板的抬升与翻转角：
+     - **阶段 1 · 开场踩板接触与蓄力下蹲（Coil）**：开场帧前脚或后脚必须**真实踩贴在滑板板面之上**（零悬空穿帮），双膝微屈下沉、衣袍略收；
+     - **阶段 2 · 后脚点板爆起（Pop）**：后脚踝瞬间下压点尾，驱动 3D 滑板抬头起跳，人物重心离地上升；
+     - **阶段 3 · 前脚斜前方搓翻（Flick）**：前腿沿滑板斜前角刷出并外伸脚尖，精准触发滑板绕纵轴 `360°` 翻滚；
+     - **阶段 4 · 腾空最高点双膝收腿（Tuck）**：滑板在脚下旋转时，双膝大幅上提收腿给板面让出旋转空间，无束腰宽袍与双肩包随惯性微扬；
+     - **阶段 5 · 躯干与双肩反向对旋平衡（Counter-Rotation）**：肩胛与双臂相对髋部做微幅反向拧转维持空中平衡（同时头部刚体锁死保持视线沉静）；
+     - **阶段 6 · 双脚舒展接板回落（Catch）**：滑板完成翻滚摆平瞬间，双脚下探回落稳稳踩住板面，进入柔和缓冲呼吸。
+3. **衣袍飘动只驱动下摆与宽袖外缘**：宽袍鼓风波动只在腰线以下与宽袖外沿加权叠加，绝不侵入面部五官与双肩包硬质结构。
+
+### 4.5 零点击纯视觉自演总控、默认全程静音铁律与隐形热点纪律（V3.3 修订）
+
+1. **零点击纯视觉自动连续演出（`ambient-director.js` 范式）**：
+   - 严禁做成「不点按钮就永远死寂」的页面。开场推镜爆发后，纯视觉场景总控（`EditionsSceneDirector`）应按 `5–6s` 节拍自动交替演出两条因果链（手动点击控件可随时插播切换），且后台切屏（`document.hidden`）与 `prefers-reduced-motion` 自动暂停：
      - **环境→人因果链（微风穿廊）**：远山冷雾加速（`0.00s`）→ 中景树枝迎风倾曳（`+0.35s`）→ 人物外沿薄纱轻颤与前景古书微晃（`+0.70s`）→ 人物自然侧头望向远景、轻闭眼舒心微笑（`+0.90s`）。
-     - **人→物→境因果链（操作互动）**：人物低头看设备（`0.00s`）→ 手部实拧旋钮并触发泛音拨弦（`+0.28s`）→ 屏幕波形跃动与冷光尘轻扬（`+0.32s`）→ 人物抬眼望向观者微笑（`+0.84s`）。
-2. **离线程序化环境声场（Web Audio API，零外链）**：
-   - 严禁引入任何外部 `.mp3` / `.ogg` CDN 链接。使用纯本地 Web Audio 合成器生成低通温暖的 `432 Hz` 纯五度古典和声长音垫 + 柔和粉红噪声山谷轻风 + 互动时的清润鲁特琴/竖琴泛音。
-   - **自动播与唤醒**：页面加载即尝试启动；若被浏览器自动播放策略挂起，监听首次任意 `pointerdown / pointermove / wheel / touchstart / keydown` 无缝淡入（无需专程点音乐按钮），同时在顶栏提供克制的 `[data-sound-toggle]`（`Sound On / Sound Off`）静音开关，`prefers-reduced-motion` 下默认静音。
+     - **人→物→境因果链（操作互动）**：人物低头看设备（`0.00s`）→ 手部实拧旋钮并触发视觉光晕反馈（`+0.28s`）→ 屏幕波形跃动与冷光尘轻扬（`+0.32s`）→ 人物抬眼望向观者微笑（`+0.84s`）。
+2. **默认全程静音铁律（V3.3 彻底推翻旧离线合成声场规则）**：
+   - **全库默认全程静音，严禁再用 Web Audio API 振荡器（`createOscillator`）或粉红噪声合成持续背景底噪，严禁挂出 `[data-sound-toggle]` 开关**。
+   - **推翻原因**：实机试听证实，纯振荡器合成的 `432 Hz` 长音与滤波底噪在真实耳机/外放中听感类似**耳鸣嗡嗡叫**，直接拉低高端社论页面的静谧质感；`scripts/verify.mjs` 硬拦截 7 已将其列为红线拦截。若未来具体项目经用户**明确要求**加入真实音频，仅允许加载用户指定的本地实录轻音轨且默认静音、必须由用户主动点击开启。
 3. **绘画道具上的交互热区常态隐形纪律**：
    - 凡叠放在油画自带发光道具（如洋红光环旋钮）上的可点击热区（`.stage3d__hotspot`），其边框环常态必须设 `opacity: 0`，仅在 `:hover` 或 `:focus-visible` 时柔和浮现，彻底杜绝常态下与画面自带光环叠成「双层错位椭圆」的穿帮。
+
+### 4.6 原生 WebGL 着色器、多 Pass 与跨视口自适应防坑规范（V3.3 新增）
+
+当页面启用原生 WebGL1 实现真 3D 硬件（笔记本、滑板）、人物网格蒙皮或玻璃破碎转场时，必须同时守住以下四条工程底线，防止真机画面瞬间崩坏：
+
+1. **像素级细描边必须在片元着色器逐像素计算**：
+   - 严禁在顶点着色器里算边框或把边框塞进粗糙纹理（一旦碎片拉伸就会糊成整条厚粉红带）。正确做法：将片块的归一化局部坐标 `v_localUv` 与片块当前像素宽高 `u_tilePxSize` 传入片元着色器，逐像素计算距边缘的实际像素距离，锁死恒定 `1.5–2px` 锐利洋红细边。
+2. **WebGL1 显式声明精度 + 多 Pass 切换清理顶点属性**：
+   - 顶点着色器与片元着色器首行均显式声明 `precision mediump float;`（或 `highp`），禁止依赖隐式默认精度；
+   - 同一 WebGL 上下文里切换不同着色器程序（如背景碎裂 Pass → 3D 硬件 Pass → 人物网格 Pass）时，每个 Pass 绘制前必须按需绑定自身属性并关闭前一个 Pass 多出的 `vertexAttribArray`（或统一重置属性槽），杜绝跨 Pass 状态污染导致黑屏或图形炸裂。
+3. **粘性全屏舞台锁死视口高度上限 + `ResizeObserver` + 逐帧尺寸守卫**：
+   - 在嵌入式分栏预览、窄窗或高瘦 iframe 中，单纯写 `height: 100vh` 极易被外层容器撑长导致 WebGL 画布垂直拉伸畸变；粘性全屏舞台必须同时锁死 `height: 100svh; max-height: 100vh;` 并搭配 `ResizeObserver` 监听真实容器宽高，在每帧渲染前核对 `canvas.width / canvas.height` 与 `clientWidth * dpr / clientHeight * dpr` 是否一致，不一致即刻同步重设 `gl.viewport` 与投影宽高比 `aspect`。
+4. **动态创建 SVG 零外联字面量写法**：
+   - 凡在 JS 中动态拼装 SVG 节点，**严禁硬编码带 `http://` 前缀的 W3C SVG 命名空间字符串字面量**（否则会触发 `verify.mjs` 硬拦截 5 零外联报错）；应直接从页面已有 `<svg>` 元素读取 `svgEl.namespaceURI` 传入 `document.createElementNS(ns, tag)`。
 
 ---
 
@@ -197,7 +228,6 @@ function apply() {
 | `data-autoplay` | `hero-intro.js` | 布尔标记（搭配 `data-stage3d`） | 接管 `--cam-z/rx`、`--bg-push`、`.stage3d__flash` `opacity` | 写入 `data-autoplay-state="playing\|idle\|yielded"`；首滚立刻交还 `← hero-intro.js:55, 105` |
 | `data-dolly` | `stage3d.js` | 数值（默认 `150`） | 控制滚动推镜目标 Z 深度（px） | 仅随 `data-stage3d` 生效 `← stage3d.js:28` |
 | `data-drift` | `stage3d.js` | 数值（默认 `18`，`theater` 默认 `36`） | 控制鼠标视差最大平移幅度（px） | 仅随 `data-stage3d` 生效 `← stage3d.js:30` |
-| `data-sound-toggle` | `ambient-director.js` | 布尔标记（顶栏按钮） | 切换离线 Web Audio 环境声场静音并同步 `aria-pressed` | 零外链纯本地合成，加载即试播 `← V3.1` |
 | `data-cine` | `cinematic.js` | 布尔标记 | 首屏入场 `xPercent / y / opacity` | **只准挂子元素 `span`**，严禁挂父块 `.hero__title` / `.hero__status` `← motion-playbook.md §3` |
 | `data-cine-stagger` | `cinematic.js` | 布尔标记（容器） | 无（驱动子项 `[data-cine-step]`） | **合法共现**：可与 `data-scroll-layer` 同挂容器 `← motion-playbook.md §9` |
 | `data-cine-step` | `cinematic.js` | 布尔标记（卡片子项） | `y`、`opacity`（`75ms` 错峰） | 不可同时挂 `data-reveal` `← cinematic.js:146-155` |
@@ -216,7 +246,7 @@ function apply() {
 | `data-transition` | `details.js` | `flash \| wipe` | 视口中线触发整屏白闪或织物擦镜 | 挂章节 `<section>`，零依赖 `← details.js:168-183` |
 | `data-particle-field` | `details.js` | 布尔标记（`<canvas>`） | 绘制 `60×3` 星尘粒子场 | 容器须 `position: relative`，canvas 加 `aria-hidden="true"` `← motion-playbook.md §5c` |
 | `data-dropdown-trigger` / `data-search-trigger` / `data-search-close` | `cinema.js` | 布尔标记 | 顶栏/目录浮层显隐与焦点切换 | 纯 UI 交互钩子 `← cinema.js:221-242` |
-| **已废弃** `data-shot` / `data-shot-stage` / `data-shot-layer` / `data-burst-dust` / `data-burst-fog` | — | **禁止新增** | 原 `details.js` 重复 `1.77s` 爆发实现 | 已从 `details.js` 清除，统一改用 `data-stage3d` + `data-autoplay` `← C-16` |
+| **已废弃** `data-shot` / `data-shot-stage` / `data-shot-layer` / `data-burst-dust` / `data-burst-fog` / **`data-sound-toggle`** | — | **禁止新增** | 原 `details.js` 重复爆发与 V3.1 合成音频开关 | 爆发归 `data-stage3d` + `data-autoplay`；V3.3 全库默认全程静音，`data-sound-toggle` 由 `verify.mjs` 硬拦截 7 封杀 `← C-16, V3.3` |
 
 ---
 
@@ -227,17 +257,17 @@ function apply() {
 - **采用口径：全量离线打包 `25` 个 GSAP `3.15.1` 插件（本地 `assets/starter/vendor/gsap/`，`472 KB`），零外链开箱即用** `← motion-playbook.md §6, gsap-library.md §6`。
 - **理由**：1) `verify.mjs` 严禁一切 `http(s)://` 外链，GSAP 自 `3.13` 被 Webflow 收购后全插件免费，本地预置 `25` 个文件让创作者无需构建器即可随时调用 `SplitText / DrawSVGPlugin / Flip / CustomEase`；2) HTML 页面仍只按需加载 `<script>`（基础页仅载 `gsap.min.js + ScrollTrigger.min.js`），其余插件不占首屏请求，仅增约 `410 KB` 磁盘占用，换来断网全闭环 `← gsap-library.md §5, §7`。
 
-### 6.2 动效交付前硬检查清单
+### 6.2 动效交付前硬检查清单（V3.3 更新）
 
-1. `node scripts/verify.mjs <目标目录>` 六重硬拦截全绿：零外联（全介质）、零视频、JS 语法正确、真 RGBA 分层图与零 `_qa_*` 残留、舞台多层且自运行 `← 05 §六`。
+1. `node scripts/verify.mjs <目标目录>` 七重硬拦截全绿：零外联（全介质）、零视频、JS 语法正确、真 RGBA 分层图与零 `_qa_*` 残留、舞台多层且自运行、**默认全程静音（零振荡器合成音与废弃声音开关）** `← 05 §六`。
 2. `stage3d` 首屏背景图用 `.stage3d__img`（禁挂 `.hero__img`），`cinematic.js` 已跳过推镜 `← C-15`。
-3. 加载即自动推镜并转入持续呼吸/场景轮演（无需点击按钮即有动作与离线声场尝试启播），首次滚动即交还相机控制权 `← C-14, V3.1`。
+3. 加载即自动推镜并转入纯视觉持续呼吸/场景轮演（无需点击按钮即有动作、全程静音无嗡鸣），首次滚动即交还相机控制权 `← C-14, V3.3`。
 4. 4 层标准（`-240 / 0 / +40 / +90px`）或 5 层剧场（`-260 / -165 / -75 / 0 / +42 & +82px`）深度正确，已删 `.stage3d__tone`，落地带柔焦冷暗接触影，无整身气球漂浮 `← C-01, C-13, V3.1`。
-5. 若含活体人物微动：丝纱仅最外沿 `±0.7–2.1px` 轻拂（禁实心头发乱甩）、活动手部通过 200% 实景复查且袖口包覆无裂缝、道具热区常态 `opacity: 0` 无双层光环 `← V3.1`。
-6. 非 `stage3d` 推镜只动纯 `scale`，父块未标 `data-cine`，延迟链锁定 `0.72s / 1.32s` `← motion-playbook.md §1, §3`。
-7. 同元素未混挂 `data-scroll-layer` 与 `data-parallax`；`data-cine-stagger` 卡片未兼挂 `data-reveal` `← cinematic.js:146, 171`。
-8. `[data-particle-field]` 首帧有像素且离屏暂停；`reduced-motion` 下动效归零、画布静绘一帧、声场默认静音 `← details.js:192, V3.1`。
-9. 保留 `3s` 停滞强制显隐兜底；若用 `SplitText`，拆 DOM 后再绑定入场 `← cinematic.js:199, gsap-library.md §9`。
+5. 若含活体人物微动或动态网格蒙皮：头颈刚体保护区零扭曲、动作符合真实运动力学且开场脚板接触、丝纱仅最外沿 `±0.7–2.1px` 轻拂（禁实心头发乱甩）、活动手部通过 200% 实景复查且袖口包覆无裂缝、道具热区常态 `opacity: 0` 无双层光环 `← V3.1, V3.3`。
+6. 若含原生 WebGL 舞台：细边放片元逐像素算、着色器声明精度且多 Pass 清理属性、容器锁 `100svh / max-height: 100vh` 配 `ResizeObserver` 逐帧尺寸守卫、动态 SVG 读 `namespaceURI` 零硬编码外链 `← V3.3`。
+7. 非 `stage3d` 推镜只动纯 `scale`，父块未标 `data-cine`，延迟链锁定 `0.72s / 1.32s` `← motion-playbook.md §1, §3`。
+8. 同元素未混挂 `data-scroll-layer` 与 `data-parallax`；`data-cine-stagger` 卡片未兼挂 `data-reveal` `← cinematic.js:146, 171`。
+9. `[data-particle-field]` 首帧有像素且离屏暂停；`reduced-motion` 下动效归零、画布静绘一帧；保留 `3s` 停滞强制显隐兜底；若用 `SplitText`，拆 DOM 后再绑定入场 `← details.js:192, cinematic.js:199, gsap-library.md §9`。
 
 ---
 

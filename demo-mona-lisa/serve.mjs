@@ -34,7 +34,7 @@ const MIME = {
 const server = createServer(async (req, res) => {
   try {
     const urlPath = decodeURIComponent(new URL(req.url || "/", "http://localhost").pathname);
-    const rel = urlPath === "/" ? "index.html" : urlPath.replace(/^\/+/, "");
+    const rel = urlPath === "/" ? "orbit.html" : urlPath.replace(/^\/+/, "");
     const file = path.resolve(ROOT, rel);
     if (!file.startsWith(ROOT)) { res.writeHead(403).end("Forbidden"); return; }
     const info = await stat(file);

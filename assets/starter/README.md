@@ -28,23 +28,23 @@ node serve.mjs        # → http://127.0.0.1:4188/
 | `css/details.css` | 跨章节过渡遮罩（白闪 / 织物擦镜）与粒子画布样式 |
 | `js/motion.js` | 平滑滚动、章节主题联动、stagger 进场、斥力场、视差、阻尼 |
 | `js/stage3d.js` + `js/hero-intro.js` | 单透视相机驱动（支持标准与 `theater` 双模式、前景滚动退场、共享阻尼指针）+ 首屏自动推镜/爆发/呼吸序列与滚动交接 |
-| `js/ambient-director.js` | V3.1 零点击自主演出编导（`EditionsSceneDirector`）+ 100% 离线 Web Audio 432 Hz 程序化声场（`EditionsSoundEngine`，自动绑定 `[data-sound-toggle]`） |
+| `js/ambient-director.js` | V3.3 零点击纯视觉自主演出编导（`EditionsSceneDirector`，默认全程静音，已彻底移除旧版合成背景音） |
 | `css/cinema.css` + `js/cinema.js` + `js/cinematic.js` | 顶栏阶梯入场、六种滚动驱动镜头 rig、2D 推镜（含 `[data-stage3d]` 互斥保护锁） |
 | `js/details.js` | 章节白闪/擦镜与 `60×3` 粒子流背景 |
 | `assets/` | 几何线 SVG、光晕底图、3 张示范分层 PNG（`assets/layers/`） |
 | `fonts/` | 4 个本地 `.woff2` 字体（零外联） |
 | `vendor/gsap/` | 本地离线 GSAP `3.15.1` 全量 `25` 个插件（`472 KB`） |
 | `serve.mjs` | 零依赖本地预览服务器（`node serve.mjs`） |
-| `references/01..06` | V3.1 六份零冲突手册（从根目录 `SKILL.md` 按问题路由进入） |
+| `references/01..06` | V3.3 六份零冲突手册（从根目录 `SKILL.md` 按问题路由进入） |
 
 ## 改一页的最短路径
 
 1. 用 `node <skill>/scripts/scaffold.mjs --out <目录> --title "<标题>"` 复制一份。
-2. `index.html` 里替换 SLOT 区块的文字与图片路径；做含人物与道具的敞廊/室内外舞台时，在 `[data-stage3d]` 上加 `data-stage-mode="theater"` 启用 5 层真景深，并引入 `js/ambient-director.js` 让画面与离线声场零点击自主演出。
+2. `index.html` 里替换 SLOT 区块的文字与图片路径；做含人物与道具的敞廊/室内外舞台时，在 `[data-stage3d]` 上加 `data-stage-mode="theater"` 启用 5 层真景深，并引入 `js/ambient-director.js` 让画面在默认静音下零点击纯视觉自主演出。
 3. 增删章节时同步复制 `<section>` 与一条侧栏 `<li>`；罗马数字由 CSS counter 自动生成。
 4. 换肤只改 `css/tokens.css` 的 `--c-*`（严禁动主底色 `--c-page-bg` 与侧栏宽度 `--sidebar-w`）；改节奏改 `--sp-*`。
 5. 要镜头推进：选真 3D 舞台（`stage3d.js + hero-intro.js`）或 `.cine-stage` 滚动 rig（`cinema.js`，六种轨迹见 `references/04-motion-and-stage3d.md §四`）。
-6. 跑 `node <skill>/scripts/verify.mjs <目录>`（六条零依赖硬拦截），再按 `references/05-page-recipes-and-verification.md §五` 的四把尺子验收。
+6. 跑 `node <skill>/scripts/verify.mjs <目录>`（七条零依赖硬拦截），再做无头浏览器关键帧截图目检并按 `references/05-page-recipes-and-verification.md §五` 的四把尺子验收。
 
 ## 不要动的东西
 
