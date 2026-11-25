@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" data-nav-theme="dark" data-title-theme="dark" data-sidebar-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Renaissance Edition — Two-Act Showcase (Orbit → Gioconda)</title>
+  <meta name="description" content="Shopify Editions Winter 2026 Two-Act Showcase: Weightless Kickflip Orbit, 3D Hardware Throw, Mosaic Shatter, Five-Plane Living Florentine Loggia, and Matte Bronze Astrolabe Compass Index.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/stage3d.css">
+  <link rel="stylesheet" href="css/orbit.css">
+</head>
+<body class="orbit-body">
+
+  <!-- ==================== GLOBAL TOP NAVIGATION ==================== -->
+  <header class="orbit-header">
+    <a class="orbit-header__brand" href="#orbit">
+      <strong>Editions</strong><span>Winter ’26</span>
+    </a>
+    <nav class="orbit-header__nav" aria-label="Global">
+      <a class="orbit-header__link is-active" href="#orbit" data-nav-id="orbit">Orbit</a>
+      <a class="orbit-header__link" href="#gioconda" data-nav-id="gioconda">Gioconda</a>
+      <a class="orbit-header__link" href="#stillness" data-nav-id="stillness">Stillness</a>
+      <a class="orbit-header__link" href="index.html">Single-Act Original</a>
+      <button type="button" class="orbit-btn orbit-btn--compass" data-open-compass aria-label="Open Astrolabe Compass Index">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="12" cy="12" r="9.5"/>
+          <polygon points="12,4.2 14.2,12 12,19.8 9.8,12" fill="currentColor" fill-opacity="0.25"/>
+          <circle cx="12" cy="12" r="1.4" fill="currentColor"/>
+        </svg>
+        Compass
+      </button>
+      <button type="button" class="orbit-btn orbit-btn--pill" id="btn-replay-orbit">Replay Orbit</button>
+    </nav>
+  </header>
+
+  <!-- ==================== FIXED 13.9% LEFT SIDEBAR ==================== -->
+  <aside class="orbit-rail" aria-label="Chapters">
+    <div class="orbit-rail__brand">
+      <p class="orbit-rail__brand-title">The<br>Ren<em>ai</em>ssance<br>Edition</p>
+      <p class="orbit-rail__brand-sub">Act 0 → Act I · Two-Act</p>
+    </div>
+
+    <div class="orbit-rail__bottom">
+      <ol class="orbit-rail__chapters">
+        <li class="orbit-rail__item is-active" data-rail-id="orbit">
+          <a href="#orbit"><span>Orbit</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">I</span></a>
+        </li>
+        <li class="orbit-rail__item" data-rail-id="gioconda">
+          <a href="#gioconda"><span>Gioconda</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">II</span></a>
+        </li>
+        <li class="orbit-rail__item" data-rail-id="stillness">
+          <a href="#stillness"><span>Stillness</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">III</span></a>
+        </li>
+        <li class="orbit-rail__item" data-rail-id="grammar">
+          <a href="#grammar"><span>Grammar</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">IV</span></a>
+        </li>
+        <li class="orbit-rail__item" data-rail-id="colophon">
+          <a href="#colophon"><span>Colophon</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">V</span></a>
+        </li>
+      </ol>
+
+      <div class="orbit-rail__footer">
+        <div>Winter ’26 · Two-Act<br>Orbit → Gioconda</div>
+        <button type="button" class="orbit-rail__compass-link" data-open-compass>Astrolabe Compass ↗</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== ACT 0 · WEIGHTLESS ORBIT & SHATTER ==================== -->
+  <section id="orbit" class="orbit-track" aria-label="Act 0 Weightless Orbit">
+    <div class="orbit-viewport">
+      <div class="orbit-sky-layer" id="orbit-sky-layer" aria-hidden="true"></div>
+      <div class="orbit-vignette" aria-hidden="true"></div>
+
+      <!-- Da Vinci Concentric Orbital Geometry -->
+      <svg class="orbit-geometry" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g stroke="#d8e3e6" stroke-width="0.7" fill="none" opacity="0.55">
+          <circle cx="720" cy="445" r="392"/>
+          <circle cx="720" cy="445" r="286" stroke-dasharray="3 6"/>
+          <ellipse cx="720" cy="445" rx="442" ry="184" transform="rotate(-14 720 445)"/>
+          <ellipse cx="720" cy="445" rx="418" ry="166" transform="rotate(22 720 445)"/>
+          <line x1="0" y1="342" x2="1440" y2="342" opacity="0.4"/>
+          <line x1="550" y1="0" x2="550" y2="900" opacity="0.35"/>
+          <line x1="890" y1="0" x2="890" y2="900" opacity="0.35"/>
+          <line x1="210" y1="0" x2="1230" y2="900" opacity="0.28"/>
+          <line x1="1230" y1="0" x2="210" y2="900" opacity="0.28"/>
+        </g>
+      </svg>
+
+      <!-- Scattered Vibrant Modern Props (asymmetric multi-depth parallax) -->
+      <div class="orbit-props" aria-hidden="true">
+        <img class="orbit-prop orbit-prop--gameboy"  src="assets/media/prop-gameboy-pink.png" alt="" data-orbit-prop data-depth="0.9" data-dx="-0.9" data-dy="-0.7" data-rot="-6">
+        <img class="orbit-prop orbit-prop--speaker"  src="assets/media/prop-speaker.png"      alt="" data-orbit-prop data-depth="1.15" data-dx="-1.2" data-dy="0.3"  data-rot="8">
+        <img class="orbit-prop orbit-prop--keyboard" src="assets/media/prop-keyboard.png"     alt="" data-orbit-prop data-depth="1.05" data-dx="1.1"  data-dy="-0.8" data-rot="14">
+        <img class="orbit-prop orbit-prop--snack"    src="assets/media/prop-snack.png"        alt="" data-orbit-prop data-depth="1.25" data-dx="1.3"  data-dy="0.1"  data-rot="-9">
+        <img class="orbit-prop orbit-prop--guitar"   src="assets/media/prop-guitar.png"       alt="" data-orbit-prop data-depth="1.45" data-dx="1.1"  data-dy="1.0"  data-rot="16">
+      </div>
+
+      <!-- Native WebGL Stage: Girl + 3D Skateboard + 3D Laptop + Mosaic Shatter -->
+      <canvas id="orbit-canvas" class="orbit-canvas" aria-label="Interactive WebGL Renaissance Orbit Scene"></canvas>
+
+      <!-- Bottom HUD & Display Headline -->
+      <div class="orbit-hud" id="orbit-hud">
+        <div class="orbit-hud__bar">
+          <ol class="orbit-phases">
+            <li class="is-active" data-orbit-phase="0">I · Weightless Leap</li>
+            <li data-orbit-phase="1">II · Laptop Throw</li>
+            <li data-orbit-phase="2">III · Mosaic Shatter</li>
+            <li data-orbit-phase="3">IV · Act I</li>
+          </ol>
+          <div class="orbit-hud__actions">
+            <button type="button" class="orbit-play-btn" id="btn-play-sequence">Play Sequence ↓</button>
+            <span class="orbit-scrub-hint">scroll to scrub</span>
+          </div>
+        </div>
+        <h1 class="orbit-headline">Unleash the orbit</h1>
+      </div>
+
+      <div class="orbit-progress-bar" id="orbit-progress-bar" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ==================== ACT I · FIVE-PLANE LIVING FLORENTINE LOGGIA ==================== -->
+  <section id="gioconda" class="act1-section" aria-label="Act I Gioconda">
+    <div class="act1-stage">
+      <div class="stage3d" id="act1-stage" data-stage3d data-stage-mode="theater" data-autoplay="1">
+        <div class="stage3d__camera">
+          <!-- L1 Far Background: Cold Tuscan Valley (-260px) -->
+          <div class="stage3d__layer stage3d__layer--bg">
+            <img src="assets/media/act1-valley.jpg" alt="Mist-veiled cold teal Tuscan valley">
+          </div>
+
+          <!-- L3 Mid Architecture: Florentine Stone Loggia (-75px) -->
+          <div class="stage3d__layer stage3d__layer--arch">
+            <img src="assets/media/act1-loggia.png" alt="Florentine Renaissance stone arches and balustrade">
+          </div>
+
+          <!-- L4 Grounded Subject: Mona Lisa + Headphones + Marble Console (0px) -->
+          <div class="stage3d__layer stage3d__layer--subject">
+            <img src="assets/media/act1-mona.png" alt="Mona Lisa wearing studio headphones tuning a brushed aluminum console on marble">
+          </div>
+
+          <!-- L5a FX Plane: Da Vinci Geometry + Live Console Oscilloscope + Light Motes (+42px) -->
+          <div class="stage3d__layer stage3d__layer--fx">
+            <svg class="stage3d__geometry" viewBox="0 0 420 560" aria-hidden="true">
+              <g stroke="#f7f7ee" stroke-width="0.9" fill="none" opacity="0.65">
+                <rect x="44" y="44" width="332" height="472"/>
+                <circle cx="210" cy="280" r="166"/>
+                <circle cx="210" cy="280" r="102" stroke="#ea135e" opacity="0.7"/>
+                <line x1="44" y1="280" x2="376" y2="280"/>
+                <line x1="210" y1="44" x2="210" y2="516"/>
+                <line x1="44" y1="44" x2="376" y2="516" opacity="0.45"/>
+              </g>
+            </svg>
+            <svg class="act1-oscilloscope" viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden="true">
+              <path id="osc-wave-a" d="M 0 24 L 200 24"/>
+              <path id="osc-wave-b" class="osc-magenta" d="M 0 24 L 200 24"/>
+            </svg>
+            <div class="act1-motes">
+              <span class="act1-mote" style="left:32%;top:42%;animation-delay:0s;"></span>
+              <span class="act1-mote act1-mote--magenta" style="left:30%;top:55%;animation-delay:-2.1s;"></span>
+              <span class="act1-mote" style="left:51%;top:43%;animation-delay:-3.8s;"></span>
+              <span class="act1-mote" style="left:69%;top:62%;animation-delay:-1.4s;"></span>
+            </div>
+          </div>
+
+          <!-- L5b Foreground Frame: Arch Pillar + Open Manuscript + Glass Vessel (+82px) -->
+          <div class="stage3d__layer stage3d__layer--fg">
+            <img src="assets/media/act1-fg.png" alt="Foreground stone arch, open Renaissance manuscript, and glass vessel">
+          </div>
+        </div>
+
+        <!-- Invisible-at-rest Console Dial Hotspot (V3.3 opacity: 0 until hover) -->
+        <button type="button" class="stage3d__hotspot act1-dial-hotspot" id="act1-dial-hotspot" aria-label="Pulse console dial">
+          <span class="stage3d__hotspot-ring"></span>
+          <span class="stage3d__hotspot-pulse"></span>
+        </button>
+
+        <div class="stage3d__flash" aria-hidden="true"></div>
+      </div>
+
+      <!-- Act I Editorial Overlay -->
+      <div class="act1-overlay">
+        <h2 class="act1-title">Gioconda</h2>
+        <p class="act1-lead">Act I revealed through the fractured Da Vinci grid — five separated depth planes where Tuscan wind ripples her silk veil and her hand tunes the marble-seated console.</p>
+        <div class="act1-cadence" role="tablist" aria-label="Act I visual cadence">
+          <button type="button" class="is-active" data-act1-cadence="stillness">Stillness</button>
+          <span>·</span>
+          <button type="button" data-act1-cadence="wind">Loggia Wind</button>
+          <span>·</span>
+          <button type="button" data-act1-cadence="pulse">Harmonic Pulse</button>
+        </div>
+        <p class="act1-cadence-note" id="act1-cadence-note">Quiet Loggia Study — grounded five-plane perspective with zero audio drone</p>
+        <a class="act1-cta" href="#stillness">Read Chapter XIV ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EDITORIAL PAPER CHAPTERS III–V (#dcded1) ==================== -->
+  <main class="paper-main">
+
+    <!-- CHAPTER III · STILLNESS -->
+    <section id="stillness" class="paper-chapter" aria-label="Chapter III Stillness">
+      <div class="paper-chapter__eyebrow">
+        <span class="roman">III</span>
+        <span>Plate 02 · Marble Desk &amp; Hands Quiet Study</span>
+      </div>
+      <h2 class="paper-chapter__title">Stillness</h2>
+
+      <div class="stillness-grid">
+        <figure class="paper-card stillness-plate" style="margin:0;">
+          <img src="assets/media/stillness-plate02.jpg" alt="Renaissance hands resting beside a glass phial and anodized aluminum monolith with two magenta accents on cold marble">
+          <figcaption class="stillness-plate__cap">
+            <span>Plate 02 — Northern Studio Diffuse Light</span>
+            <span>#dcded1 Paper · Cold Teal Shadows</span>
+          </figcaption>
+        </figure>
+
+        <article class="paper-card">
+          <p class="dropcap-prose">Restraint gives the frame its gravity. Between the weightless kickflip of Act 0 and the stone stillness of the Florentine loggia, every surface obeys one cool northern sky: flat brushwork on skin, matte antique metals, and two disciplined sparks of neon magenta.</p>
+          <p style="font-size:13.5px;line-height:1.65;color:var(--c-grey-dark);margin:0;">
+            Notice how modern aluminum never blurs into faux oil impasto. Its chamfered edges remain razor-clean while its shadow plane absorbs the exact teal ambient reflection of the surrounding studio.
+          </p>
+          <ul class="paper-meta-list">
+            <li><span>Paper Ground</span><strong>#dcded1 Ash Sage</strong></li>
+            <li><span>Card Surface</span><strong>#f7f7ee Borderless Cream</strong></li>
+            <li><span>Painting Shadow Hue</span><strong>189°–224° Cold Teal</strong></li>
+            <li><span>Acoustic Policy</span><strong>V3.3 Silent by Default</strong></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- CHAPTER IV · GRAMMAR -->
+    <section id="grammar" class="paper-chapter" aria-label="Chapter IV Spatial Grammar">
+      <div class="paper-chapter__eyebrow">
+        <span class="roman">IV</span>
+        <span>Spatial Rules · Editions V3.3 Architecture</span>
+      </div>
+      <h2 class="paper-chapter__title">Grammar</h2>
+
+      <div class="grammar-grid">
+        <div class="paper-card">
+          <div class="grammar-card__num">01 / RAIL</div>
+          <div class="grammar-card__val">13.9% Rail</div>
+          <p class="grammar-card__desc">Fixed left navigation column calibrated to the 29-frame Editions capture, leaving 86.1% for editorial typography and full-bleed stages.</p>
+        </div>
+        <div class="paper-card">
+          <div class="grammar-card__num">02 / RIGID LOCK</div>
+          <div class="grammar-card__val">Head &amp; Neck 0%</div>
+          <p class="grammar-card__desc">Mesh skinning freezes solid anatomy during idle hover and locks head/neck throughout all six skateboard kickflip phases.</p>
+        </div>
+        <div class="paper-card">
+          <div class="grammar-card__num">03 / DEPTH</div>
+          <div class="grammar-card__val">5-Plane Theater</div>
+          <p class="grammar-card__desc">Single perspective camera drives valley (-260px), loggia (-75px), grounded subject (0px), fx (+42px), and peeling foreground (+82px).</p>
+        </div>
+        <div class="paper-card">
+          <div class="grammar-card__num">04 / SHADER</div>
+          <div class="grammar-card__val">1.8px Per-Pixel</div>
+          <p class="grammar-card__desc">Mosaic shatter borders compute exact fragment-level edge distance so split-pane viewports never stretch seams into thick magenta bars.</p>
+        </div>
+        <div class="paper-card">
+          <div class="grammar-card__num">05 / DUAL PALETTE</div>
+          <div class="grammar-card__val">Strict Isolation</div>
+          <p class="grammar-card__desc">Painting shadows stay strictly within 189°–224° cold cyan-slate; web ink (#292919) stays strictly inside typographic CSS tokens.</p>
+        </div>
+        <div class="paper-card">
+          <div class="grammar-card__num">06 / SILENCE</div>
+          <div class="grammar-card__val">Zero Oscillator</div>
+          <p class="grammar-card__desc">All autonomous visual cadences run silently from first paint — zero clicking required, zero synthetic Web Audio hum.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER V · COLOPHON -->
+    <section id="colophon" class="paper-chapter" aria-label="Chapter V Colophon">
+      <div class="paper-chapter__eyebrow">
+        <span class="roman">V</span>
+        <span>Craft Record · Two-Act Editorial Specification</span>
+      </div>
+      <h2 class="paper-chapter__title">Colophon</h2>
+
+      <div class="colophon-grid">
+        <div class="paper-card">
+          <p class="dropcap-prose">Assembled offline with zero external requests, four localized woff2 typefaces, native WebGL 3D hardware passes, and an interactive matte antique-bronze astrolabe compass index.</p>
+          <div class="colophon-actions">
+            <button type="button" class="colophon-btn" data-open-compass>Open Astrolabe Compass ↗</button>
+            <a class="colophon-btn colophon-btn--ghost" href="#orbit">Return to Act 0 Orbit ↑</a>
+            <a class="colophon-btn colophon-btn--ghost" href="index.html">Single-Act Original →</a>
+          </div>
+        </div>
+        <div class="paper-card">
+          <ul class="paper-meta-list" style="margin-top:0;padding-top:0;border-top:0;">
+            <li><span>Display Sans</span><strong>NeueMontreal Bold 700</strong></li>
+            <li><span>Narrative Serif</span><strong>HWCigars Regular</strong></li>
+            <li><span>Drop Cap Script</span><strong>ImperialScript</strong></li>
+            <li><span>Interface UI</span><strong>Inter Variable</strong></li>
+            <li><span>Motion Engine</span><strong>GSAP 3.15.1 (Local) + Native WebGL</strong></li>
+            <li><span>Verification</span><strong>V3.3 Seven Hard Guards</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FULLSCREEN RENAISSANCE MATTE BRONZE ASTROLABE COMPASS TOC ==================== -->
+  <div id="compass-overlay" class="compass-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Astrolabe Compass Chapter Index">
+    <div class="compass-overlay__frame" aria-hidden="true"></div>
+
+    <div class="compass-top">
+      <div class="compass-top__label">
+        <span class="compass-top__dot"></span>
+        <span>The Renaissance Edition · Astrolabe Compass Index</span>
+      </div>
+      <button type="button" class="compass-close" id="compass-close">Close <span>|</span> Esc</button>
+    </div>
+
+    <div class="compass-grid">
+      <!-- Left: Matte Antique Bronze Astrolabe Dial -->
+      <div class="compass-dial-wrap">
+        <svg id="compass-svg" class="compass-svg" viewBox="0 0 440 440" aria-label="Interactive Astrolabe Compass Dial">
+          <defs>
+            <linearGradient id="bronzeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e3ca90"/>
+              <stop offset="50%" stop-color="#b89652"/>
+              <stop offset="100%" stop-color="#876b35"/>
+            </linearGradient>
+            <linearGradient id="magentaTip" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#ea135e"/>
+              <stop offset="100%" stop-color="#ff0cdb"/>
+            </linearGradient>
+            <filter id="magentaGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="3.5" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Outer Antique Bronze Bezel & Astrolabe Concentric Rings -->
+          <circle cx="220" cy="220" r="196" fill="rgba(12,18,30,0.65)" stroke="url(#bronzeGrad)" stroke-width="1.6"/>
+          <circle cx="220" cy="220" r="186" fill="none" stroke="rgba(199,169,107,0.28)" stroke-width="0.9"/>
+          <circle cx="220" cy="220" r="134" fill="none" stroke="rgba(199,169,107,0.16)" stroke-width="0.8"/>
+          <circle cx="220" cy="220" r="106" fill="none" stroke="rgba(199,169,107,0.22)" stroke-width="0.7" stroke-dasharray="2 5"/>
+          <circle cx="220" cy="220" r="56"  fill="none" stroke="rgba(199,169,107,0.38)" stroke-width="1"/>
+          <circle cx="220" cy="220" r="24"  fill="none" stroke="rgba(199,169,107,0.18)" stroke-width="0.8"/>
+
+          <!-- Astrolabe Inscribed Geometric Pentagram / Star Web -->
+          <g stroke="rgba(199,169,107,0.14)" stroke-width="0.8" fill="none">
+            <polygon points="220,90 344,180 296,326 144,326 96,180"/>
+            <polygon points="220,90 296,326 96,180 344,180 144,326" opacity="0.65"/>
+            <line x1="220" y1="24" x2="220" y2="416"/>
+            <line x1="24" y1="220" x2="416" y2="220"/>
+          </g>
+
+          <!-- Cardinal Directions -->
+          <g fill="rgba(199,169,107,0.82)" font-size="10" letter-spacing="2" text-anchor="middle" dominant-baseline="central">
+            <text x="220" y="12">N</text>
+            <text x="429" y="220">E</text>
+            <text x="220" y="429">S</text>
+            <text x="11" y="220">W</text>
+          </g>
+
+          <!-- Degree Ticks (major every 30 deg) -->
+          <g stroke="rgba(199,169,107,0.45)" stroke-width="1">
+            <line x1="220" y1="26" x2="220" y2="38"/><line x1="220" y1="402" x2="220" y2="414"/>
+            <line x1="26" y1="220" x2="38" y2="220"/><line x1="402" y1="220" x2="414" y2="220"/>
+            <line x1="317" y1="52" x2="311" y2="62"/><line x1="388" y1="123" x2="378" y2="129"/>
+            <line x1="388" y1="317" x2="378" y2="311"/><line x1="317" y1="388" x2="311" y2="378"/>
+            <line x1="123" y1="388" x2="129" y2="378"/><line x1="52" y1="317" x2="62" y2="311"/>
+            <line x1="52" y1="123" x2="62" y2="129"/><line x1="123" y1="52" x2="129" y2="62"/>
+          </g>
+
+          <!-- Five Roman Chapter Stations (0°, 72°, 144°, 216°, 288° at R=148) -->
+          <g class="compass-station is-active" data-station-idx="0" transform="translate(220,72)">
+            <circle class="station-ring" r="18"/><text>I</text>
+          </g>
+          <g class="compass-station" data-station-idx="1" transform="translate(361,174)">
+            <circle class="station-ring" r="18"/><text>II</text>
+          </g>
+          <g class="compass-station" data-station-idx="2" transform="translate(307,340)">
+            <circle class="station-ring" r="18"/><text>III</text>
+          </g>
+          <g class="compass-station" data-station-idx="3" transform="translate(133,340)">
+            <circle class="station-ring" r="18"/><text>IV</text>
+          </g>
+          <g class="compass-station" data-station-idx="4" transform="translate(79,174)">
+            <circle class="station-ring" r="18"/><text>V</text>
+          </g>
+
+          <!-- Matte Bronze Rotating Needle with Razor-Thin Glowing Magenta Tip -->
+          <g id="compass-needle" transform="rotate(0 220 220)">
+            <!-- Counterweight Tail -->
+            <polygon points="220,220 224.5,258 220,304 215.5,258" fill="url(#bronzeGrad)" opacity="0.86"/>
+            <circle cx="220" cy="298" r="3.4" fill="#0c121e" stroke="#c7a96b" stroke-width="1.2"/>
+            <!-- Main Antique Bronze Shaft -->
+            <polygon points="220,86 225,220 220,228 215,220" fill="url(#bronzeGrad)"/>
+            <!-- Razor-Thin Glowing Magenta Tip -->
+            <polygon points="220,40 223.2,92 220,96 216.8,92" fill="url(#magentaTip)" filter="url(#magentaGlow)"/>
+            <!-- Center Pivot Boss -->
+            <circle cx="220" cy="220" r="11" fill="#0c121e" stroke="url(#bronzeGrad)" stroke-width="2.2"/>
+            <circle cx="220" cy="220" r="4.2" fill="url(#bronzeGrad)"/>
+          </g>
+        </svg>
+
+        <div class="compass-readout">
+          Bearing <strong id="compass-bearing-deg">000°</strong>
+          <span id="compass-bearing-name">I · ORBIT</span>
+        </div>
+      </div>
+
+      <!-- Right: Interactive Chapter Index -->
+      <div class="compass-list-wrap">
+        <div class="compass-list-head">Chapters · Hover list or drag compass needle</div>
+        <ol class="compass-list">
+          <li class="compass-row is-active" data-compass-idx="0" tabindex="0">
+            <span class="compass-row__roman">I</span>
+            <div class="compass-row__body">
+              <div class="compass-row__title-line">
+                <span class="compass-row__title">Orbit</span>
+                <span class="compass-row__dot"></span>
+              </div>
+              <span class="compass-row__sub">Act 0 · Weightless Kickflip &amp; 3D Hardware Prologue</span>
+            </div>
+            <span class="compass-row__deg">000°</span>
+          </li>
+          <li class="compass-row" data-compass-idx="1" tabindex="0">
+            <span class="compass-row__roman">II</span>
+            <div class="compass-row__body">
+              <div class="compass-row__title-line">
+                <span class="compass-row__title">Gioconda</span>
+                <span class="compass-row__dot"></span>
+              </div>
+              <span class="compass-row__sub">Act I · Five-Plane Living Florentine Loggia</span>
+            </div>
+            <span class="compass-row__deg">072°</span>
+          </li>
+          <li class="compass-row" data-compass-idx="2" tabindex="0">
+            <span class="compass-row__roman">III</span>
+            <div class="compass-row__body">
+              <div class="compass-row__title-line">
+                <span class="compass-row__title">Stillness</span>
+                <span class="compass-row__dot"></span>
+              </div>
+              <span class="compass-row__sub">Plate 02 · Marble Desk &amp; Hands Quiet Study</span>
+            </div>
+            <span class="compass-row__deg">144°</span>
+          </li>
+          <li class="compass-row" data-compass-idx="3" tabindex="0">
+            <span class="compass-row__roman">IV</span>
+            <div class="compass-row__body">
+              <div class="compass-row__title-line">
+                <span class="compass-row__title">Grammar</span>
+                <span class="compass-row__dot"></span>
+              </div>
+              <span class="compass-row__sub">Spatial Rules · Dual-Track Token Architecture</span>
+            </div>
+            <span class="compass-row__deg">216°</span>
+          </li>
+          <li class="compass-row" data-compass-idx="4" tabindex="0">
+            <span class="compass-row__roman">V</span>
+            <div class="compass-row__body">
+              <div class="compass-row__title-line">
+                <span class="compass-row__title">Colophon</span>
+                <span class="compass-row__dot"></span>
+              </div>
+              <span class="compass-row__sub">Craft Record · Two-Act Editorial Specification</span>
+            </div>
+            <span class="compass-row__deg">288°</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="compass-bottom">
+      <span>Florentia · Lat 43°46'N · Winter ’26</span>
+      <span>Drag dial or hover index · Click any chapter to enter</span>
+    </div>
+  </div>
+
+  <!-- Local Offline GSAP 3.15.1 + V3.3 Stage & Orbit Scripts -->
+  <script src="vendor/gsap/gsap.min.js"></script>
+  <script src="vendor/gsap/ScrollTrigger.min.js"></script>
+  <script src="js/stage3d.js"></script>
+  <script src="js/hero-intro.js"></script>
+  <script src="js/ambient-director.js"></script>
+  <script src="js/orbit-webgl.js"></script>
+  <script src="js/orbit.js"></script>
+</body>
+</html>

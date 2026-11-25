@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-nav-theme="dark" data-title-theme="dark" data-sidebar-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gioconda — Single-Act Florentine Loggia Study</title>
+  <meta name="description" content="Single-Act Five-Plane Living Florentine Loggia Study following Shopify Editions Winter 2026 V3.3 specification.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/stage3d.css">
+  <link rel="stylesheet" href="css/orbit.css">
+</head>
+<body class="orbit-body">
+  <header class="orbit-header">
+    <a class="orbit-header__brand" href="orbit.html">
+      <strong>Editions</strong><span>Winter ’26</span>
+    </a>
+    <nav class="orbit-header__nav" aria-label="Global">
+      <a class="orbit-header__link" href="orbit.html">Two-Act Orbit ↗</a>
+      <a class="orbit-header__link is-active" href="#gioconda">Gioconda</a>
+      <a class="orbit-header__link" href="#stillness">Stillness</a>
+      <a class="orbit-header__link" href="#colophon">Colophon</a>
+    </nav>
+  </header>
+
+  <aside class="orbit-rail" aria-label="Chapters">
+    <div class="orbit-rail__brand">
+      <p class="orbit-rail__brand-title">The<br>Ren<em>ai</em>ssance<br>Edition</p>
+      <p class="orbit-rail__brand-sub">Single-Act · Original</p>
+    </div>
+    <div class="orbit-rail__bottom">
+      <ol class="orbit-rail__chapters">
+        <li class="orbit-rail__item is-active" data-rail-id="gioconda">
+          <a href="#gioconda"><span>Gioconda</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">I</span></a>
+        </li>
+        <li class="orbit-rail__item" data-rail-id="stillness">
+          <a href="#stillness"><span>Stillness</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">II</span></a>
+        </li>
+        <li class="orbit-rail__item" data-rail-id="colophon">
+          <a href="#colophon"><span>Colophon</span><span class="orbit-rail__dots"></span><span class="orbit-rail__roman">III</span></a>
+        </li>
+      </ol>
+      <div class="orbit-rail__footer">
+        <div>Winter ’26 · Single-Act<br>Florentine Loggia</div>
+        <a class="orbit-rail__compass-link" href="orbit.html" style="display:inline-block;text-decoration:none;">Return to Orbit ↗</a>
+      </div>
+    </div>
+  </aside>
+
+  <section id="gioconda" class="act1-section" aria-label="Gioconda Single-Act Stage">
+    <div class="act1-stage">
+      <div class="stage3d" id="act1-stage" data-stage3d data-stage-mode="theater" data-autoplay="1">
+        <div class="stage3d__camera">
+          <div class="stage3d__layer stage3d__layer--bg">
+            <img src="assets/media/act1-valley.jpg" alt="Mist-veiled cold teal Tuscan valley">
+          </div>
+          <div class="stage3d__layer stage3d__layer--arch">
+            <img src="assets/media/act1-loggia.png" alt="Florentine Renaissance stone arches and balustrade">
+          </div>
+          <div class="stage3d__layer stage3d__layer--subject">
+            <img src="assets/media/act1-mona.png" alt="Mona Lisa wearing studio headphones tuning a brushed aluminum console on marble">
+          </div>
+          <div class="stage3d__layer stage3d__layer--fx">
+            <svg class="act1-oscilloscope" viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden="true">
+              <path id="osc-wave-a" d="M 0 24 L 200 24"/>
+              <path id="osc-wave-b" class="osc-magenta" d="M 0 24 L 200 24"/>
+            </svg>
+          </div>
+          <div class="stage3d__layer stage3d__layer--fg">
+            <img src="assets/media/act1-fg.png" alt="Foreground stone arch, open Renaissance manuscript, and glass vessel">
+          </div>
+        </div>
+        <button type="button" class="stage3d__hotspot act1-dial-hotspot" id="act1-dial-hotspot" aria-label="Pulse console dial">
+          <span class="stage3d__hotspot-ring"></span>
+          <span class="stage3d__hotspot-pulse"></span>
+        </button>
+        <div class="stage3d__flash" aria-hidden="true"></div>
+      </div>
+
+      <div class="act1-overlay">
+        <h1 class="act1-title">Gioconda</h1>
+        <p class="act1-lead">Five-plane living Florentine loggia — Tuscan valley depth, carved stone arches, grounded marble desk, and silent autonomous cadence.</p>
+        <div class="act1-cadence">
+          <button type="button" class="is-active" data-act1-cadence="stillness">Stillness</button>
+          <span>·</span>
+          <button type="button" data-act1-cadence="wind">Loggia Wind</button>
+          <span>·</span>
+          <button type="button" data-act1-cadence="pulse">Harmonic Pulse</button>
+        </div>
+        <p class="act1-cadence-note" id="act1-cadence-note">Quiet Loggia Study — grounded five-plane perspective with zero audio drone</p>
+        <a class="act1-cta" href="orbit.html">Open Two-Act Orbit &amp; Compass ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="paper-main">
+    <section id="stillness" class="paper-chapter">
+      <div class="paper-chapter__eyebrow"><span class="roman">II</span><span>Plate 01 &amp; Plate 02 · Cold Northern Light</span></div>
+      <h2 class="paper-chapter__title">Stillness</h2>
+      <div class="stillness-grid">
+        <figure class="paper-card stillness-plate" style="margin:0;">
+          <img src="assets/media/stillness-plate02.jpg" alt="Renaissance hands beside glass phial and anodized aluminum monolith">
+          <figcaption class="stillness-plate__cap"><span>Plate 02 — Marble Desk Quiet Study</span><span>#dcded1 Ground</span></figcaption>
+        </figure>
+        <figure class="paper-card stillness-plate" style="margin:0;">
+          <img src="assets/media/plate01-portrait.jpg" alt="Florentine portrait study with headphones and magenta device">
+          <figcaption class="stillness-plate__cap"><span>Plate 01 — Valley Portrait Study</span><span>189°–224° Shadow</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="colophon" class="paper-chapter">
+      <div class="paper-chapter__eyebrow"><span class="roman">III</span><span>Single-Act Original</span></div>
+      <h2 class="paper-chapter__title">Colophon</h2>
+      <div class="paper-card">
+        <p class="dropcap-prose">This standalone Florentine Loggia study shares the exact V3.3 offline token system, localized fonts, and five-plane perspective engine as the Two-Act Orbit showcase.</p>
+        <div class="colophon-actions">
+          <a class="colophon-btn" href="orbit.html">Launch Two-Act Orbit Showcase ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="vendor/gsap/gsap.min.js"></script>
+  <script src="vendor/gsap/ScrollTrigger.min.js"></script>
+  <script src="js/stage3d.js"></script>
+  <script src="js/hero-intro.js"></script>
+  <script src="js/ambient-director.js"></script>
+  <script src="js/orbit.js"></script>
+</body>
+</html>

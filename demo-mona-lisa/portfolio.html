@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!--
+  ====================================================================
+  配方示例 · 作品集（Portfolio）
+  对应 references/05-page-recipes-and-verification.md §三（配方 1）
+  ====================================================================
+  视觉结构：真 3D 四层油画首屏 + 灰绿主底作品区 → 浅灰带 → 关于 → 深色联系。
+
+  中文页做了两处适配（05 §1.3）：
+    1. text-box 覆盖为 normal —— cap/alphabetic 是拉丁基线，对汉字无效
+    2. 不使用 .drop-cap / .drop-cap-aligned —— 两者共用同一条 ::first-letter 规则
+
+  图片说明：assets/layers/ 下三张为分层演示素材，正式使用时按 03 §四 替换为自产冷青蓝分层素材。
+  用 `node serve.mjs` 起服务后打开；file:// 直开会被 CORS 拦截字体。
+  ====================================================================
+-->
+<html lang="zh-CN" data-nav-theme="dark" data-title-theme="dark" data-sidebar-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>林奕 — 视觉设计</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/cinema.css">
+<link rel="stylesheet" href="css/stage3d.css">
+<link rel="stylesheet" href="css/details.css">
+<style>
+  /* 中文页必须：text-box 的 cap/alphabetic 对汉字无效，见 05 §1.3 */
+  h1,h2,h3,h4,h5,h6,
+  .headline-1,.headline-2,.headline-3,.headline-4,.headline-5,.headline-6,
+  .narrative-1,.narrative-2,.narrative-3,.hero__title { text-box: normal; }
+  /* 中文不做负字距；行高放宽（英文 .9 / 正文 .97 会把汉字挤在一起） */
+  .hero__title { letter-spacing: -.01em; line-height: 1.04; }
+  .headline-6, .narrative-1, .narrative-2, .narrative-3 { letter-spacing: 0; }
+  .narrative-2, .narrative-3 { line-height: 1.7; }
+  .hero__lead { line-height: 1.75; }
+  /* .block__title 默认 max-width:80% + margin-left:auto（为 .grid--offset 配的 4/5 二次偏移）。
+     本页不用二次偏移，标题要跟栅格同一条左边缘 */
+  .block__title { margin-left: 0; max-width: none; }
+  /* 首屏巨字避开左侧栏（侧栏宽度 13.9%，C-10）。给 hero 内容加左侧安全距。 */
+  .hero__inner { padding-left: calc(var(--sidebar-w, 13.9%) * 1.05); }
+  /* 占位板：作品图还没出，用纸面色块顶着。出了图就删掉 .plate，换回 .media--video */
+  .plate {
+    aspect-ratio: var(--aspect-video);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--c-grey-light);
+    box-shadow: inset 0 0 0 1px var(--c-ink-10);
+    color: var(--c-grey-dark);
+    font-family: var(--f-ui); font-size: 11px;
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<header class="cine-header">
+  <nav class="cine-nav" aria-label="Global">
+    <div class="cine-nav__veil cine-nav__veil--dark"></div>
+    <div class="cine-nav__veil cine-nav__veil--light"></div>
+    <a class="cine-nav__brand" href="#top">林奕 &nbsp;|&nbsp; 视觉设计</a>
+    <ul class="cine-nav__list">
+      <li class="cine-nav__item"><a class="cine-nav__link" href="#work">作品</a></li>
+      <li class="cine-nav__item"><a class="cine-nav__link" href="#about">关于</a></li>
+      <li class="cine-nav__item cine-nav__item--pill"><a class="cine-nav__link" href="#contact">联系我</a></li>
+    </ul>
+  </nav>
+</header>
+<img class="cine-geometry" src="assets/davinci-lines.svg" alt="" aria-hidden="true">
+
+<div class="page">
+
+  <!-- ============ 侧栏目录：项数必须等于 section 数 ============ -->
+  <aside class="side-nav" aria-label="章节索引">
+    <div class="side-nav__inner">
+      <ul class="side-nav__list">
+        <li class="side-nav__item is-active" data-target="top">
+          <a class="side-nav__link headline-6" href="#top">
+            <span><span class="side-nav__label">首页</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+        <li class="side-nav__item" data-target="work">
+          <a class="side-nav__link headline-6" href="#work">
+            <span><span class="side-nav__label">作品</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+        <li class="side-nav__item" data-target="about">
+          <a class="side-nav__link headline-6" href="#about">
+            <span><span class="side-nav__label">关于</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+        <li class="side-nav__item" data-target="contact">
+          <a class="side-nav__link headline-6" href="#contact">
+            <span><span class="side-nav__label">联系</span><span class="side-nav__rule"></span></span>
+            <span class="side-nav__num"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="page__main">
+
+    <!-- ============ 1. 封面：全幅油画 + 巨字压左（dark）============ -->
+    <section class="section section--dark" id="top"
+             data-section-id="top" data-section-index="0"
+             data-section-scope data-nav-theme="dark"
+             data-title-theme="dark" data-sidebar-theme="dark">
+      <div class="section__body">
+        <div class="hero">
+          <div class="hero__media">
+            <!-- 真 3D 分层舞台：背景/人物/物品/动效四层各自 translateZ 固定深度，
+                 由 stage3d.js 只改相机容器，透视自动算出位移差（牵一发而动全身）。
+                 素材是原创生成 + 去水印 + 抠图的独立层，见 assets/layers/。 -->
+            <div class="stage3d" data-stage3d data-autoplay data-dolly="150" data-drift="18">
+              <div class="stage3d__camera">
+                <div class="stage3d__layer stage3d__layer--bg">
+                  <img class="stage3d__img" src="assets/layers/bg-courtyard.png"
+                       alt="古典石廊庭院背景层" fetchpriority="high">
+                </div>
+                <div class="stage3d__layer stage3d__layer--cutout stage3d__layer--subject">
+                  <img src="assets/layers/figure-woman-cutout.png"
+                       alt="身着象牙色亚麻长裙的人物">
+                </div>
+                <div class="stage3d__layer stage3d__layer--fx">
+                  <img class="stage3d__geometry" src="assets/davinci-lines.svg" alt="" aria-hidden="true">
+                  <span class="stage3d__spark stage3d__spark--a"></span>
+                  <span class="stage3d__spark stage3d__spark--b"></span>
+                </div>
+                <div class="stage3d__layer stage3d__layer--cutout stage3d__layer--prop">
+                  <img src="assets/layers/prop-mirror-cutout.png"
+                       alt="缠着干玫瑰与缎带的鎏金手镜">
+                </div>
+              </div>
+              <!-- 1.77s 爆发闪光：60ms 亮 / 460ms 暗，不参与推镜（已按 C-01 移除旧版 .stage3d__tone 暖棕罩染） -->
+              <div class="stage3d__flash"></div>
+              <div class="stage3d__caption">04 层 · 单一相机驱动</div>
+            </div>
+            <div class="hero__glow"></div>
+            <div class="hero__veil"></div>
+          </div>
+          <div class="hero__inner">
+            <!-- SLOT: 名字 + 身份，两行；不要写"作品集"。
+                 子元素 data-cine 由入场编舞点亮；父 h1 交给滚动推镜，两者不写同一属性。 -->
+            <h1 class="hero__title">
+              <span data-cine>林奕</span>
+              <span data-cine>视觉设计</span>
+            </h1>
+            <!-- SLOT: 一行状态，30 字以内。全页唯一的荧光点就在前面那个圆点 -->
+            <p class="hero__status"><span data-cine>现可接新项目 · 书籍 / 展览 / 品牌</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. 精选作品（paper）============ -->
+    <section class="section section--paper" id="work"
+             data-section-id="work" data-section-index="1"
+             data-section-scope data-nav-theme="light"
+             data-title-theme="light" data-sidebar-theme="light"
+             data-transition="wipe">
+      <div class="section__body">
+
+        <!-- 动画背景：60 线 × 3 粒子 Canvas（04 §四 常量）。
+             淡纹理层，pointer-events:none，不参与栅格、不抢正文对比度。 -->
+        <canvas data-particle-field aria-hidden="true"></canvas>
+
+        <!-- 分层滚动：标题最慢、图卡略快、罗马数字最快并实体压在图卡上。
+             四层系数见 cinematic.js §5 / references/04-motion-and-stage3d.md §四。 -->
+        <div class="scroll-mark" data-scroll-layer="prop" aria-hidden="true">I</div>
+
+        <h2 class="block__title narrative-1 grid-padding" data-reveal data-scroll-layer="title">精选作品</h2>
+
+        <p class="narrative-2 grid-padding" data-reveal style="--index:1;max-width:60%;margin-bottom:var(--sp-60)">
+          做纸上的东西，也做屏幕上的。偏爱纸的厚度、油墨的边缘，和那些需要凑近才看得见的细节。
+        </p>
+
+        <!-- data-cine-stagger 容器：作品卡由 GSAP 按 75ms stagger 进场。
+             data-scroll-layer="subject" 让整组比标题快一拍，与前景数字形成三级错位。 -->
+        <div class="block block--tall grid grid-padding" data-cine-stagger data-scroll-layer="subject">
+          <!-- 两栏大图。作品卡的标题与年份分开排（headline-6 + bodycopy-2） -->
+          <article class="grid__half" data-cine-step>
+            <!-- SLOT: 换成你的作品图（16:9，冷青蓝色调规范见 01 §一 / 03 §一） -->
+            <div class="plate">作品图 · 16:9</div>
+            <h3 class="headline-6" style="margin-top:15px">潮汐档案</h3>
+            <p class="bodycopy-2" style="margin-top:6px">书籍设计 · 2025 · 上海</p>
+          </article>
+
+          <article class="grid__half" data-cine-step>
+            <div class="plate">作品图 · 16:9</div>
+            <h3 class="headline-6" style="margin-top:15px">第二层土</h3>
+            <p class="bodycopy-2" style="margin-top:6px">展览视觉 · 2025 · 北京</p>
+          </article>
+        </div>
+
+        <!-- 全宽浅灰带：官网节奏里的休止符，不能省。必须放在 grid 之外，否则只有 64% 宽 -->
+        <div class="band" data-reveal data-scroll-layer="bg" style="--index:2">
+          <p class="narrative-2">九年平面，三年博物馆与独立出版。做的东西大多很慢，所以挑客户也慢。</p>
+          <hr class="rule" style="margin-top:20px">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 3. 关于（paper）============ -->
+    <section class="section section--paper" id="about"
+             data-section-id="about" data-section-index="2"
+             data-section-scope data-nav-theme="light"
+             data-title-theme="light" data-sidebar-theme="light">
+      <div class="section__body">
+
+        <h2 class="block__title narrative-1 grid-padding" data-reveal>关于</h2>
+
+        <div class="block grid grid-padding">
+
+          <div class="grid__full" data-reveal>
+            <!-- SLOT: 引言行；中文不用 drop-cap，靠首行缩进做起首感 -->
+            <p class="narrative-1" style="text-indent:2em;max-width:var(--content-w)">
+              做了九年平面，最近三年主要和博物馆、独立出版社打交道。
+            </p>
+          </div>
+
+          <div class="grid__five" data-reveal data-scroll-layer="bg" style="--index:1;margin-top:30px">
+            <!-- 占位内容：正式使用时替换成真实工作照（16:9，C-16 已移除重复的 data-shot/data-burst 钩子）。 -->
+            <div class="plate" style="position:relative">
+              <span>工作照 · 16:9</span>
+              <span style="position:absolute;left:12px;bottom:10px;font-family:var(--f-ui);font-size:9px;letter-spacing:.14em;color:var(--c-grey-dark)">STUDIO / 2025</span>
+            </div>
+          </div>
+
+          <div class="grid__half" data-reveal style="--index:2;margin-top:30px">
+            <div class="rich-text narrative-2">
+              <p>习惯先把材料摸一遍再动笔。纸的克重、布的织法、油墨在哑光面上干掉之后偏暖还是偏冷，这些比版式更早决定一张东西的样子。</p>
+              <p style="margin-top:1em">也做数字的。但会把它当作纸的延伸——同样的字距，同样的留白，只是换了一种反光。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. 联系（dark）============ -->
+    <section class="section section--dark" id="contact"
+             data-section-id="contact" data-section-index="3"
+             data-section-scope data-nav-theme="dark"
+             data-title-theme="dark" data-sidebar-theme="dark"
+             data-transition="flash">
+      <div class="section__body">
+        <div class="block grid grid-padding" style="padding-block:var(--sp-120)">
+          <div class="grid__full" data-reveal>
+            <h2 class="headline-3">有项目想聊聊？</h2>
+          </div>
+          <div class="grid__full" data-reveal style="--index:1;margin-top:24px">
+            <p class="narrative-2" style="max-width:var(--content-w)">
+              邮件最快，通常两天内回。说清截止时间和预算范围，我们能省掉一轮来回。
+            </p>
+            <a class="cta" href="mailto:hello@example.com" style="margin-top:30px">
+              <span class="cta__label">hello@example.com</span>
+              <span class="cta__icon">
+                <svg viewBox="0 0 7 7" fill="none" aria-hidden="true">
+                  <path fill="currentColor" d="m5.105 5.112-.078-2.397-3.599 3.599-.75-.75 3.6-3.599-2.397-.078v-.99l4.058.156.163 4.066-.997-.007Z"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vendor/gsap/gsap.min.js" defer></script>
+<script src="vendor/gsap/ScrollTrigger.min.js" defer></script>
+<script src="js/motion.js" defer></script>
+<script src="js/cinema.js" defer></script>
+<script src="js/cinematic.js" defer></script>
+<script src="js/stage3d.js" defer></script>
+<script src="js/hero-intro.js" defer></script>
+<script src="js/details.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1139 @@
+/* =====================================================================
+ * orbit.css — The Renaissance Edition Two-Act Showcase (V3.3)
+ * Act 0 (Weightless Orbit + 3D Skateboard/Laptop + Mosaic Shatter)
+ * Act I (Five-Plane Living Florentine Loggia — Gioconda)
+ * Chapters III–V (Stillness · Grammar · Colophon on #dcded1 paper)
+ * Fullscreen Renaissance Matte Bronze Astrolabe Compass TOC
+ * ===================================================================== */
+
+:root {
+  --orbit-deep: #0b161e;
+  --orbit-teal: #10242d;
+  --orbit-bronze: #c7a96b;
+  --orbit-bronze-dim: rgba(199, 169, 107, 0.34);
+  --orbit-bronze-faint: rgba(199, 169, 107, 0.14);
+  --orbit-magenta: #ff0cdb;
+  --orbit-rose: #ea135e;
+  --orbit-nav-h: 52px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--c-page-bg);
+}
+
+body.orbit-body {
+  margin: 0;
+  padding: 0;
+  background: var(--c-page-bg);
+  color: var(--c-ink);
+  font-family: var(--f-ui);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Top Global Nav ---------- */
+.orbit-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--orbit-nav-h);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  transition: background-color 0.4s var(--e-default), color 0.4s var(--e-default);
+}
+
+.orbit-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 22, 30, 0.72) 0%, rgba(11, 22, 30, 0) 100%);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+html[data-nav-theme="light"] .orbit-header::before {
+  background: linear-gradient(180deg, rgba(220, 222, 209, 0.88) 0%, rgba(220, 222, 209, 0) 100%);
+}
+
+.orbit-header__brand,
+.orbit-header__nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.orbit-header__brand {
+  text-decoration: none;
+  color: var(--c-paper);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+.orbit-header__brand strong {
+  font-family: var(--f-sans);
+  font-weight: 700;
+}
+.orbit-header__brand span {
+  opacity: 0.72;
+  margin-left: 6px;
+}
+
+html[data-nav-theme="light"] .orbit-header__brand,
+html[data-nav-theme="light"] .orbit-header__link {
+  color: var(--c-ink);
+}
+
+.orbit-header__link {
+  color: var(--c-paper);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.82;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.orbit-header__link:hover,
+.orbit-header__link.is-active {
+  opacity: 1;
+}
+
+.orbit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(247, 247, 238, 0.24);
+  background: rgba(14, 24, 32, 0.48);
+  color: var(--c-paper);
+  font-family: var(--f-ui);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+.orbit-btn:hover {
+  border-color: var(--orbit-bronze);
+  background: rgba(24, 34, 42, 0.78);
+}
+.orbit-btn--compass {
+  border-color: rgba(199, 169, 107, 0.45);
+  color: #f3e4bf;
+}
+.orbit-btn--compass:hover {
+  border-color: var(--orbit-bronze);
+  box-shadow: 0 0 14px rgba(199, 169, 107, 0.22);
+}
+.orbit-btn--pill {
+  border-radius: 999px;
+  border-color: rgba(199, 169, 107, 0.36);
+  background: rgba(34, 34, 24, 0.56);
+}
+html[data-nav-theme="light"] .orbit-btn {
+  background: rgba(247, 247, 238, 0.76);
+  border-color: rgba(41, 41, 25, 0.24);
+  color: var(--c-ink);
+}
+html[data-nav-theme="light"] .orbit-btn--compass {
+  border-color: rgba(138, 109, 53, 0.55);
+  color: #4c3b18;
+}
+
+/* ---------- Fixed 13.9% Left Rail ---------- */
+.orbit-rail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-w);
+  min-width: 168px;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 62px 16px 20px 17px;
+  color: var(--c-paper);
+  pointer-events: none;
+  transition: color 0.45s ease;
+}
+.orbit-rail > * {
+  pointer-events: auto;
+}
+html[data-sidebar-theme="light"] .orbit-rail {
+  color: var(--c-ink);
+}
+
+.orbit-rail__brand-title {
+  margin: 0;
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: clamp(16px, 1.35vw, 21px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+.orbit-rail__brand-title em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+.orbit-rail__brand-sub {
+  margin-top: 8px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.58;
+}
+
+.orbit-rail__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.orbit-rail__chapters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.orbit-rail__item a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-family: var(--f-sans);
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.orbit-rail__item a:hover,
+.orbit-rail__item.is-active a {
+  opacity: 1;
+}
+.orbit-rail__item.is-active a {
+  font-weight: 700;
+}
+.orbit-rail__dots {
+  flex: 1;
+  border-bottom: 1px dotted currentColor;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.25s ease;
+}
+.orbit-rail__item.is-active .orbit-rail__dots {
+  opacity: 0.48;
+}
+.orbit-rail__roman {
+  font-family: var(--f-serif);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  opacity: 0.64;
+}
+
+.orbit-rail__footer {
+  padding-top: 12px;
+  border-top: 1px solid rgba(247, 247, 238, 0.14);
+  font-size: 10px;
+  line-height: 1.45;
+  opacity: 0.68;
+}
+html[data-sidebar-theme="light"] .orbit-rail__footer {
+  border-top-color: rgba(41, 41, 25, 0.16);
+}
+.orbit-rail__compass-link {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--f-ui);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.82;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.orbit-rail__compass-link:hover {
+  opacity: 1;
+  color: var(--orbit-bronze);
+}
+
+/* ---------- Act 0 · Sticky Orbit Stage (360vh Scrub) ---------- */
+.orbit-track {
+  position: relative;
+  height: 360vh;
+  background: var(--orbit-deep);
+}
+
+.orbit-viewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(64% 58% at 52% 44%, rgba(28, 62, 74, 0.62) 0%, rgba(14, 30, 39, 0.88) 54%, #081219 100%);
+  isolation: isolate;
+}
+
+.orbit-sky-layer {
+  position: absolute;
+  inset: -4%;
+  background: url("../assets/media/orbit-sky.jpg") center / cover no-repeat;
+  opacity: 0.92;
+  filter: brightness(0.76) contrast(1.06) saturate(0.95);
+  transform: scale(1.06);
+  will-change: transform;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbit-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(54% 48% at 50% 48%, rgba(20, 46, 56, 0.08) 0%, rgba(8, 17, 23, 0.68) 100%),
+    linear-gradient(180deg, rgba(8, 16, 22, 0.48) 0%, rgba(8, 16, 22, 0) 24%, rgba(8, 16, 22, 0.56) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.orbit-geometry {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.34;
+}
+
+/* Scattered Vibrant Modern Props (asymmetric, multi-depth) */
+.orbit-props {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.orbit-prop {
+  position: absolute;
+  width: auto;
+  height: auto;
+  user-select: none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 18px 28px rgba(8, 16, 24, 0.58));
+}
+.orbit-prop--gameboy {
+  left: 28.5%;
+  top: 11%;
+  width: clamp(56px, 5.4vw, 82px);
+}
+.orbit-prop--speaker {
+  left: 16%;
+  top: 48%;
+  width: clamp(72px, 6.9vw, 108px);
+}
+.orbit-prop--keyboard {
+  right: 21%;
+  top: 10.5%;
+  width: clamp(128px, 12.6vw, 192px);
+}
+.orbit-prop--snack {
+  right: 5.5%;
+  top: 31%;
+  width: clamp(76px, 7.6vw, 118px);
+}
+.orbit-prop--guitar {
+  right: 1.5%;
+  bottom: 6%;
+  width: clamp(118px, 12.2vw, 192px);
+  z-index: 7;
+}
+
+/* Main Native WebGL Canvas (Girl + 3D Skateboard + 3D Laptop + Mosaic Shatter) */
+.orbit-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Act 0 Bottom HUD & Giant Display Title */
+.orbit-hud {
+  position: absolute;
+  left: calc(var(--sidebar-w) + 22px);
+  right: 48px;
+  bottom: 0;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.orbit-hud__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 960px;
+  pointer-events: auto;
+}
+
+.orbit-phases {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(247, 247, 238, 0.44);
+}
+.orbit-phases li {
+  transition: color 0.25s ease, opacity 0.25s ease;
+  cursor: pointer;
+}
+.orbit-phases li.is-active {
+  color: var(--c-paper);
+  font-weight: 600;
+}
+
+.orbit-hud__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.orbit-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 3px;
+  border: 1px solid rgba(247, 247, 238, 0.34);
+  background: rgba(11, 22, 30, 0.56);
+  color: var(--c-paper);
+  font-family: var(--f-ui);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.orbit-play-btn:hover {
+  border-color: var(--orbit-magenta);
+  background: rgba(20, 32, 42, 0.85);
+}
+
+.orbit-scrub-hint {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: rgba(247, 247, 238, 0.56);
+}
+
+.orbit-headline {
+  margin: 0 0 -10px 0;
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: clamp(3.4rem, 7.2vw, 6.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--c-paper);
+  text-shadow: 0 8px 34px rgba(8, 16, 24, 0.52);
+}
+
+/* Progress hair-line at bottom edge of sticky stage */
+.orbit-progress-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--orbit-bronze) 0%, var(--orbit-rose) 62%, var(--orbit-magenta) 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ---------- Act I · Five-Plane Living Florentine Loggia ---------- */
+.act1-section {
+  position: relative;
+  min-height: 100vh;
+  background: #0d1d26;
+  overflow: hidden;
+  color: var(--c-paper);
+}
+
+.act1-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 680px;
+  max-height: 1080px;
+  overflow: hidden;
+}
+
+.act1-stage .stage3d__layer--bg img {
+  filter: brightness(0.84) saturate(0.92);
+}
+
+.act1-stage .stage3d__layer--arch img,
+.act1-stage .stage3d__layer--subject img,
+.act1-stage .stage3d__layer--fg img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  object-position: center center;
+  filter: none;
+}
+
+/* Subtle Tuscan breeze & living cadence transitions on Act I */
+.act1-stage .stage3d__layer--subject {
+  transform-origin: 58% 82%;
+  transition: filter 0.6s ease;
+}
+.act1-stage.is-wind .stage3d__layer--subject {
+  animation: act1-wind-sway 4.4s ease-in-out infinite;
+}
+@keyframes act1-wind-sway {
+  0%, 100% { transform: translateZ(0px) scale(1.12) rotate(0deg); }
+  50%      { transform: translateZ(0px) scale(1.124) rotate(-0.45deg); }
+}
+
+.act1-stage .act1-oscilloscope {
+  position: absolute;
+  left: 24.5%;
+  bottom: 10.5%;
+  width: 15.5%;
+  height: 6.5%;
+  opacity: 0.72;
+  pointer-events: none;
+  transform: perspective(480px) rotateX(48deg) rotateZ(-4deg);
+}
+.act1-oscilloscope path {
+  fill: none;
+  stroke: var(--c-paper);
+  stroke-width: 1.5;
+  opacity: 0.7;
+}
+.act1-oscilloscope .osc-magenta {
+  stroke: var(--orbit-rose);
+  opacity: 0.92;
+  filter: drop-shadow(0 0 6px rgba(234, 19, 94, 0.65));
+}
+
+.act1-motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.act1-mote {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(247, 247, 238, 0.9) 0%, rgba(247, 247, 238, 0) 70%);
+  opacity: 0.45;
+  animation: act1-mote-drift 8s ease-in-out infinite;
+}
+.act1-mote--magenta {
+  background: radial-gradient(circle, rgba(234, 19, 94, 0.92) 0%, rgba(234, 19, 94, 0) 72%);
+  width: 12px;
+  height: 12px;
+}
+@keyframes act1-mote-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.32; }
+  50%      { transform: translate3d(14px, -22px, 0); opacity: 0.78; }
+}
+
+/* Invisible-at-rest console dial hotspot (V3.3 strict rule) */
+.act1-dial-hotspot {
+  left: 41.6%;
+  top: 86.2%;
+  width: 74px;
+  height: 46px;
+}
+
+/* Act I Editorial Overlay (left-aligned, overlapping top nav slightly per Editions spec) */
+.act1-overlay {
+  position: absolute;
+  left: calc(var(--sidebar-w) + 26px);
+  top: 56px;
+  max-width: 440px;
+  z-index: 8;
+  pointer-events: none;
+}
+.act1-overlay > * {
+  pointer-events: auto;
+}
+.act1-title {
+  margin: 0 0 14px 0;
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: clamp(3.8rem, 7.6vw, 6.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  color: var(--c-paper);
+  text-shadow: 0 4px 28px rgba(10, 22, 30, 0.46);
+}
+.act1-lead {
+  margin: 0 0 22px 0;
+  font-family: var(--f-serif);
+  font-size: clamp(16px, 1.35vw, 20px);
+  line-height: 1.42;
+  color: rgba(247, 247, 238, 0.9);
+  text-shadow: 0 2px 16px rgba(10, 22, 30, 0.6);
+}
+
+.act1-cadence {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(247, 247, 238, 0.56);
+}
+.act1-cadence button {
+  border: 0;
+  background: transparent;
+  padding: 0 0 4px 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.act1-cadence button.is-active {
+  color: var(--c-paper);
+  border-bottom-color: var(--orbit-rose);
+}
+
+.act1-cadence-note {
+  margin: 0 0 20px 0;
+  min-height: 30px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: rgba(247, 247, 238, 0.72);
+}
+
+.act1-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 3px;
+  border: 1px solid rgba(247, 247, 238, 0.34);
+  background: rgba(12, 24, 32, 0.46);
+  color: var(--c-paper);
+  text-decoration: none;
+  font-size: 11.5px;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.act1-cta:hover {
+  border-color: var(--orbit-rose);
+  background: rgba(16, 30, 40, 0.78);
+}
+
+/* ---------- Editorial Paper Chapters III–V (#dcded1 ground + #f7f7ee borderless cards) ---------- */
+.paper-main {
+  position: relative;
+  margin-left: var(--sidebar-w);
+  width: var(--content-w);
+  background: var(--c-page-bg);
+  color: var(--c-ink);
+}
+
+.paper-chapter {
+  padding: 96px clamp(24px, 4.2vw, 68px) 84px;
+  border-top: 1px solid rgba(41, 41, 25, 0.1);
+}
+
+.paper-chapter__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-grey-dark);
+}
+.paper-chapter__eyebrow .roman {
+  font-family: var(--f-serif);
+  font-size: 13px;
+}
+
+.paper-chapter__title {
+  margin: 0 0 36px 0;
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: clamp(3.4rem, 7.4vw, 6.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  color: var(--c-ink);
+}
+
+.stillness-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.paper-card {
+  background: var(--c-card-paper);
+  border-radius: var(--r-card);
+  padding: clamp(22px, 2.4vw, 34px);
+  border: 0;
+}
+
+.stillness-plate {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.stillness-plate img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  display: block;
+}
+.stillness-plate__cap {
+  padding: 16px 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--c-grey-dark);
+  letter-spacing: 0.04em;
+}
+
+.dropcap-prose {
+  font-family: var(--f-serif);
+  font-size: clamp(18px, 1.45vw, 22px);
+  line-height: 1.5;
+  color: var(--c-ink);
+  margin: 0 0 18px 0;
+}
+.dropcap-prose::first-letter {
+  font-family: var(--f-script);
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.78;
+  padding: 4px 10px 0 0;
+  color: var(--c-ink);
+}
+
+.paper-meta-list {
+  margin: 22px 0 0 0;
+  padding: 18px 0 0 0;
+  border-top: 1px solid rgba(41, 41, 25, 0.1);
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--c-grey-dark);
+}
+.paper-meta-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.paper-meta-list strong {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+
+/* Chapter IV · Grammar 3x2 borderless card grid */
+.grammar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.grammar-card__num {
+  font-family: var(--f-serif);
+  font-size: 12px;
+  color: var(--c-grey-mid);
+  letter-spacing: 0.08em;
+}
+.grammar-card__val {
+  margin: 14px 0 8px 0;
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: clamp(22px, 2vw, 28px);
+  letter-spacing: -0.025em;
+  color: var(--c-ink);
+}
+.grammar-card__desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--c-grey-dark);
+}
+
+/* Chapter V · Colophon */
+.colophon-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+}
+.colophon-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.colophon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 3px;
+  border: 1px solid rgba(41, 41, 25, 0.24);
+  background: var(--c-ink);
+  color: var(--c-paper);
+  font-family: var(--f-ui);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.colophon-btn--ghost {
+  background: transparent;
+  color: var(--c-ink);
+}
+.colophon-btn:hover {
+  opacity: 0.86;
+}
+
+/* =====================================================================
+ * FULLSCREEN RENAISSANCE MATTE BRONZE ASTROLABE COMPASS TOC
+ * z-index: 12000 (strictly above fixed top nav & left rail)
+ * ===================================================================== */
+.compass-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  background:
+    radial-gradient(62% 58% at 32% 52%, rgba(20, 31, 46, 0.96) 0%, rgba(9, 14, 24, 0.99) 70%, #070b14 100%);
+  color: #e9e4d7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 26px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.34s var(--e-default), visibility 0.34s var(--e-default);
+}
+.compass-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Outer engraved frame */
+.compass-overlay__frame {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(199, 169, 107, 0.16);
+  pointer-events: none;
+}
+
+.compass-top,
+.compass-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(199, 169, 107, 0.72);
+}
+
+.compass-top__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.compass-top__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orbit-rose);
+  box-shadow: 0 0 10px rgba(234, 19, 94, 0.85);
+}
+
+.compass-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  border: 1px solid rgba(199, 169, 107, 0.32);
+  background: rgba(12, 18, 30, 0.65);
+  color: #e9e4d7;
+  font-family: var(--f-ui);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.22s ease, color 0.22s ease;
+}
+.compass-close:hover {
+  border-color: var(--orbit-bronze);
+  color: #fff;
+}
+.compass-close span {
+  opacity: 0.45;
+}
+
+.compass-grid {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  max-width: 1260px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 0;
+}
+
+.compass-dial-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.compass-svg {
+  width: min(440px, 42vw, 60vh);
+  height: min(440px, 42vw, 60vh);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  overflow: visible;
+}
+.compass-svg.is-dragging {
+  cursor: grabbing;
+}
+
+.compass-station {
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+.compass-station circle.station-ring {
+  fill: rgba(11, 17, 29, 0.86);
+  stroke: rgba(199, 169, 107, 0.46);
+  stroke-width: 1;
+  transition: stroke 0.25s ease, stroke-width 0.25s ease, filter 0.25s ease;
+}
+.compass-station text {
+  fill: rgba(233, 228, 215, 0.78);
+  font-family: var(--f-serif);
+  font-size: 13px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  transition: fill 0.25s ease;
+}
+.compass-station.is-active circle.station-ring {
+  stroke: var(--orbit-rose);
+  stroke-width: 1.8;
+  filter: drop-shadow(0 0 8px rgba(234, 19, 94, 0.72));
+}
+.compass-station.is-active text {
+  fill: #ffffff;
+}
+
+.compass-readout {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(199, 169, 107, 0.74);
+}
+.compass-readout strong {
+  color: #f7f7ee;
+  font-weight: 600;
+  margin: 0 12px 0 6px;
+}
+
+.compass-list-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.compass-list-head {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(199, 169, 107, 0.68);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(199, 169, 107, 0.16);
+}
+
+.compass-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.compass-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr 56px;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 10px 20px 18px;
+  border-bottom: 1px solid rgba(199, 169, 107, 0.14);
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+.compass-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--orbit-bronze), var(--orbit-magenta));
+  opacity: 0;
+  transform: scaleY(0.35);
+  transition: opacity 0.25s ease, transform 0.25s var(--e-out);
+}
+.compass-row.is-active::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.compass-row__roman {
+  font-family: var(--f-serif);
+  font-size: 16px;
+  color: rgba(199, 169, 107, 0.54);
+  transition: color 0.25s ease;
+}
+.compass-row.is-active .compass-row__roman {
+  color: var(--orbit-bronze);
+}
+
+.compass-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.compass-row__title-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transform-origin: left center;
+  transition: transform 0.28s var(--e-back);
+}
+.compass-row__title {
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: rgba(233, 228, 215, 0.56);
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+.compass-row__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orbit-rose);
+  box-shadow: 0 0 12px var(--orbit-magenta);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.compass-row.is-active .compass-row__title-line {
+  transform: scale(1.09);
+}
+.compass-row.is-active .compass-row__title {
+  color: #ffffff;
+  text-shadow: 0 0 22px rgba(255, 12, 219, 0.42), 0 0 8px rgba(247, 247, 238, 0.45);
+  animation: compass-shimmer 1.15s ease-in-out infinite;
+}
+.compass-row.is-active .compass-row__dot {
+  opacity: 1;
+  transform: scale(1);
+}
+@keyframes compass-shimmer {
+  0%, 100% { opacity: 1; filter: brightness(1); }
+  50%      { opacity: 0.86; filter: brightness(1.22); }
+}
+
+.compass-row__sub {
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+  color: rgba(233, 228, 215, 0.42);
+  transition: color 0.25s ease;
+}
+.compass-row.is-active .compass-row__sub {
+  color: rgba(233, 228, 215, 0.82);
+}
+
+.compass-row__deg {
+  text-align: right;
+  font-family: var(--f-ui);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(199, 169, 107, 0.42);
+  transition: color 0.25s ease;
+}
+.compass-row.is-active .compass-row__deg {
+  color: #f7f7ee;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .orbit-rail { display: none; }
+  .paper-main { margin-left: 0; width: 100%; }
+  .orbit-hud { left: 22px; right: 22px; }
+  .act1-overlay { left: 22px; right: 22px; }
+  .stillness-grid,
+  .grammar-grid,
+  .colophon-grid,
+  .compass-grid {
+    grid-template-columns: 1fr;
+  }
+  .orbit-prop--speaker,
+  .orbit-prop--snack { display: none; }
+}
