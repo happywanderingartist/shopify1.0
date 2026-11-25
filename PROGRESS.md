@@ -39,7 +39,16 @@
 - [x] **脚本与质量闸门强化**：
   1. `scripts/verify.mjs`：由 `3` 条升级为 **6 条零依赖硬拦截**（新增真 RGBA Alpha 检测与 `_qa_*` 清零拦截、全介质 HTML/CSS/JS/内联 `<style>` 零外联与零 `<video>` + `vm.Script` JS 语法校验、多 `[data-stage3d]` 舞台逐个校验多层与 `data-autoplay`）。
   2. `scripts/scaffold.mjs`：新增 `--template editorial|portfolio` 范式选择与 `_qa_*` 临时图清理。
-  3. `package.json`：升至 `3.1.0`，`lint` 同步对 `assets/starter` 与 `demo-mona-lisa` 执行双回归验收。
+  3. `package.json`：升至 `3.3.0`，`build` / `lint` 与本地验证均指向纯技能母版 `assets/starter`。
+
+## 阶段 D · V3.2–V3.3 实战升级与纯 Skill 净化（已完成）
+
+- [x] **V3.2 大人物肖像七律与真 3D 物件规范**：沉淀「遮道具博物馆测试」、暗底配亮衣反差 `≥45%`、大角度翻转现代硬件真 3D 立体渲染。
+- [x] **V3.3 三层同步升级（手册 + 模板工程 + 验收脚本）**：
+  1. 六份手册与 `SKILL.md` 新增动态大人物穿搭（无束腰宽袍 + 鲜亮呼应焦点）、先分镜后出图、道具朝向与非对称散点构图、头颈刚体零扭曲锁与 6 阶段真实生物力学、原生 WebGL 细边片元抗锯齿与视口上限、无头浏览器关键帧目检；彻底清除离线合成背景音规则，改为默认全程静音。
+  2. `assets/starter/js/ambient-director.js` 升级为纯视觉静音编导，移除 `EditionsSoundEngine` / `AudioContext` / `createOscillator` / `data-sound-toggle`。
+  3. `scripts/verify.mjs` 升级为**七重硬拦截**（新增硬拦截 7 封杀 Web Audio 振荡器耳鸣底噪与废弃声音开关）。
+- [x] **移除展示预览页**：删除全部临时预览工程与演示图，仓库恢复为 100% 纯净的 V3.3 Skill 结构。
 
 ## 议题收口记录
 

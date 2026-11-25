@@ -14,7 +14,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 4188);
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = process.env.HOST || "";
 const MIME = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -34,9 +34,9 @@ const MIME = {
   ".webm": "video/webm",
 };
 
-createServer(async (req, res) => {
+const server = createServer(async (req, res) => {
   try {
-    const urlPath = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
+    const urlPath = decodeURIComponent(new URL(req.url || "/", "http://localhost").pathname);
     const rel = urlPath === "/" ? "index.html" : urlPath.replace(/^\/+/, "");
     const file = path.resolve(ROOT, rel);
     if (!file.startsWith(ROOT)) { res.writeHead(403).end("Forbidden"); return; }
@@ -48,11 +48,30 @@ createServer(async (req, res) => {
       "Content-Length": body.length,
       "Cache-Control": "no-store",
     });
-    res.end(body);
+    if (req.method === "HEAD") {
+      res.end();
+    } else {
+      res.end(body);
+    }
   } catch {
     res.writeHead(404).end("Not found");
   }
-}).listen(PORT, HOST, () => {
-  console.log(`template preview  →  http://${HOST}:${PORT}/`);
-  console.log(`root              →  ${ROOT}`);
 });
+
+const onListen = () => {
+  const displayHost = HOST && HOST !== "0.0.0.0" && HOST !== "::" ? HOST : "localhost";
+  console.log(`template preview  →  http://${displayHost}:${PORT}/`);
+  console.log(`root              →  ${ROOT}`);
+};
+
+if (HOST) {
+  server.listen(PORT, HOST, onListen);
+} else {
+  server.listen(PORT, onListen);
+}
+
+for (const sig of ["SIGINT", "SIGTERM"]) {
+  process.on(sig, () => {
+    server.close(() => process.exit(0));
+  });
+}
