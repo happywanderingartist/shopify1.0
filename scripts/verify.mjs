@@ -38,7 +38,7 @@ const PNG_SIG = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 const TRANSPARENT_PNG_RE = /(?:cutout|subject|prop|arch|fg|mid|hand|cypress|base|console|figure)/i;
 const OPAQUE_BG_PNG_RE = /^(?:bg-|.*-bg\.png$)/i;
 
-async function walkFiles(dir, skipDirs = new Set(["node_modules", "vendor", ".git"])) {
+async function walkFiles(dir, skipDirs = new Set(["node_modules", "vendor", ".git", ".agents"])) {
   const out = [];
   let entries;
   try {

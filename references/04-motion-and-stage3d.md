@@ -214,6 +214,8 @@ function apply() {
    - 在嵌入式分栏预览、窄窗或高瘦 iframe 中，单纯写 `height: 100vh` 极易被外层容器撑长导致 WebGL 画布垂直拉伸畸变；粘性全屏舞台必须同时锁死 `height: 100svh; max-height: 100vh;` 并搭配 `ResizeObserver` 监听真实容器宽高，在每帧渲染前核对 `canvas.width / canvas.height` 与 `clientWidth * dpr / clientHeight * dpr` 是否一致，不一致即刻同步重设 `gl.viewport` 与投影宽高比 `aspect`。
 4. **动态创建 SVG 零外联字面量写法**：
    - 凡在 JS 中动态拼装 SVG 节点，**严禁硬编码带 `http://` 前缀的 W3C SVG 命名空间字符串字面量**（否则会触发 `verify.mjs` 硬拦截 5 零外联报错）；应直接从页面已有 `<svg>` 元素读取 `svgEl.namespaceURI` 传入 `document.createElementNS(ns, tag)`。
+5. **严禁使用纯程序化 GLSL 数学球体/噪声硬画有机星空与星球背景（V3.4 新增）**：
+   - 原生 WebGL 的职责严格限定于**3D 工业硬体（滑板、笔电）、人物局部网格蒙皮、马赛克碎裂转场与极克制的微尘粒子**；严禁用片元着色器 `fbm` + 数学球体去硬画「太空星云与行星背景」（在 16 世纪油画人物背后一眼像廉价屏保，画风彻底断裂）。一切云海、星穹、花丛与建筑必须走 16 世纪博物馆油画分层贴图（`03 §0.6`），再由 `stage3d.js` 单相机驱动透视视差。
 
 ---
 
